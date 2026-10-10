@@ -7,6 +7,7 @@
 * HTML web interface
 * JavaScript dynamic interaction
 * MYSQL database
+* PHP to access database
 
 ## Features
 
