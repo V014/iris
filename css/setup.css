@@ -153,7 +153,9 @@ input:focus {
     outline-offset: 0px;
 }
 .terms{
-    text-align: center;
+    
+    justify-content: center;
+    width: 50%;
 }
 select {
     width: 100%; 
