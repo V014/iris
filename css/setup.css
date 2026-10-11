@@ -37,6 +37,11 @@ body {
     justify-content: center;
 }
 
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
 /* ----- PANEL CARD (reuse) ----- */
 
 /* Steps progress tracker */
@@ -138,7 +143,7 @@ input {
     border-radius: var(--border-radius);
     /* */
     padding: var(--control-padding);
-    width: 100%;
+    /* width: 100%; */
     font-size: 1rem;
     transition: border 0.2s;
 }
@@ -146,6 +151,9 @@ input:focus {
     border-radius: var(--border-radius);
     outline: 2px solid var(--accent-color);
     outline-offset: 0px;
+}
+.terms{
+    text-align: center;
 }
 select {
     width: 100%; 
@@ -209,6 +217,10 @@ label {
     margin-top: 10px; 
     margin-bottom: 10px; 
     text-align: center;
+}
+
+.modal-container {
+    display:none;
 }
 
 /* ----- brand image (replaces icon) ----- */

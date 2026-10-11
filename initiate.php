@@ -42,7 +42,11 @@
           hx-target="#initiate-feedback"
           hx-swap="innerHTML"
         >
-
+          <label for="terms" class="terms">
+            I agree to the <a href=terms.php>terms and conditions</a>
+            <input type="checkbox" class="terms" name="terms" id="terms" value="agree" required>
+          </label>
+          
           <button type="submit" class="btn-primary">
             <i class="fas fa-sign-in-alt"></i> Create Database
           </button>
