@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <script src="js/htmx.org@2.0.0.min.js"></script>
-    <title>Afrinance</title>
+    <title>Iris</title>
 </head>
 <body>
     <!-- ========== LOGIN PAGE (standalone) ========== -->
@@ -15,10 +15,10 @@
         <div class="text-center mb-6">
           <!-- IMAGE REPLACES THE ICON -->
           <div class="brand-image-wrapper">
-            <img class="brand-image" src="brand/logo-green.png" alt="Afrinance" onerror="this.style.display = 'none'"/>
+            <img class="brand-image" src="brand/logo-green.png" alt="Iris logo" onerror="this.style.display = 'none'"/>
           </div>
           <h1 style="font-size: 1.8rem; font-weight: 700; margin-top: 0.25rem">
-            Afrinance
+            Iris login
           </h1>
           <p style="opacity: 0.6; font-size: 0.95rem; margin-top: 0.25rem">
             Enter your credentials

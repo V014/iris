@@ -17,6 +17,7 @@
             You may not use the Software if you are a not the intended user (a maize milling company) located in Malawi due to the pre-set
             values relating to country duristiction.
         </p>
+        <br>
         <p>
             This software has been built with trditioanl PHP and must be run within a secure environment, any loss of data during a leak is 
             solely the responsibility of the one who installed it. 
