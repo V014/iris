@@ -1,19 +1,6 @@
 <?php
 // [fill in the KPI's]
 try {
-    // cross check to make sure admin is still logged in
-    $stmt = $pdo->prepare('SELECT username, password, role FROM users WHERE id = :user_id AND status = "Active" LIMIT 1');
-    $stmt->execute(['user_id' => $_SESSION['user_id']]);
-    $user = $stmt->fetch();
-
-}   catch(PDOException $e){
-    error_log($e->getMessage());
-    logError($pdo, "Failed to query admin activity: " . $e->getMessage());
-    dashboardFeedback('Failed to query admin activity. Please try again later.');
-    exit;
-}
-
-try {
     // Count total branches
     $Stmt = $pdo->prepare('SELECT COUNT(id) AS total FROM branch');
     $Stmt->execute();
@@ -21,7 +8,7 @@ try {
     
 }   catch(PDOException $e){
     error_log($e->getMessage());
-    logError($pdo, "Failed to count total branches: " . $e->getMessage());
+    userLogr($pdo, "Read", "System", "Failed to count total branches", "Failure");
     dashboardFeedback('Failed to count total branches. Please try again later.');
     exit;
 }
@@ -34,7 +21,7 @@ try {
     
 }   catch(PDOException $e){
     error_log($e->getMessage());
-    logError($pdo, "Failed to count total active branches: " . $e->getMessage());
+    userLogr($pdo, "Read", "System", "Failed to count total active branches", "Failure");
     dashboardFeedback('Failed to count total active branches. Please try again later.');
     exit;
 }
@@ -47,7 +34,7 @@ try {
     
 }   catch(PDOException $e){
     error_log($e->getMessage());
-    logError($pdo, "Failed to count total inactive branches: " . $e->getMessage());
+    userLogr($pdo, "Read", "System", "Failed to count total inactive branches", "Failure");
     dashboardFeedback('Failed to count total inactive branches. Please try again later.');
     exit;
 }
@@ -60,7 +47,7 @@ try {
 
 } catch(PDOException $e) {
     error_log($e->getMessage());
-    logError($pdo, "Failed to show branches: " . $e->getMessage());
+    userLogr($pdo, "Read", "System", "Failed to show all branches", "Failure");
     dashboardFeedback('Failed to show branches. Please try again later.');
     exit;
 }
