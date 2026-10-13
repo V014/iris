@@ -91,7 +91,8 @@ require_once "controls/create.php";
                 <option value="">Select a role...</option>
                 <option value="cashier">Operator</option>
                 <option value="accountant">Accountant</option>
-                <option value="admin-manager">Admin Manager</option>
+                <option value="admin-manager">Branch Manager</option>
+                <option value="admin-manager">Business Owner</option>
               </select>
             </div>
 
