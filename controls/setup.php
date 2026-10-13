@@ -67,14 +67,14 @@ try {
     // Login the user after successful registration
     $userId = $pdo->lastInsertId();
 
-    // log the user entry
-    userLog($pdo,'Login','System','Successful login','Success');
-
     // refill sessions of already active
     session_regenerate_id(true);
     $_SESSION['user_id'] = $userId;
     $_SESSION['username'] = $username;
     $_SESSION['role'] = $role;
+
+    // log the user entry
+    userLog($pdo,'Login','System','Successful login','Success');
 
     // route user to correct dashboard
     $dashboard = match ($role) {
