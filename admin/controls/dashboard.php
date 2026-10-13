@@ -10,19 +10,6 @@ function dashboardFeedback(string $message): never
 
 // [fill in the KPI's]
 try {
-    // cross check database to see if queried KPIs are functional
-    $stmt = $pdo->prepare('SELECT username, password, role FROM users WHERE id = :user_id LIMIT 1');
-    $stmt->execute(['user_id' => $_SESSION['user_id']]);
-    $user = $stmt->fetch();
-
-}   catch(PDOException $e){
-    error_log($e->getMessage());
-    logError($pdo, "Failed to query KPIs: " . $e->getMessage());
-    dashboardFeedback('Failed to query KPIs. Please try again later.');
-    exit;
-}
-
-try {
     // Count total admins
     $Stmt = $pdo->prepare('SELECT COUNT(id) AS total FROM users WHERE role = "Admin"');
     $Stmt->execute();
@@ -30,7 +17,7 @@ try {
     
 }   catch(PDOException $e){
     error_log($e->getMessage());
-    logError($pdo, "Failed to count total admins: " . $e->getMessage());
+    userLogr($pdo, "Read", "System", "Failed to count total admins", "Failure");
     dashboardFeedback('Failed to count total admins. Please try again later.');
     exit;
 }
@@ -43,7 +30,7 @@ try {
     
 }   catch(PDOException $e){
     error_log($e->getMessage());
-    logError($pdo, "Failed to count inactive admins: " . $e->getMessage());
+    userLog($pdo, "Read", "System", "Failed to count inactive admins", "Failure");
     dashboardFeedback('Failed to count inactive admins. Please try again later.');
     exit;
 }
@@ -56,7 +43,7 @@ try {
     
 }   catch(PDOException $e){
     error_log($e->getMessage());
-    logError($pdo, "Failed to count active admins: " . $e->getMessage());
+    userLog($pdo, "Read", "System", "Failed to count active admins", "Failure");
     dashboardFeedback('Failed to count active admins. Please try again later.');
     exit;
 }
@@ -69,7 +56,7 @@ try {
     
 }   catch(PDOException $e){
     error_log($e->getMessage());
-    logError($pdo, "Failed to count accountants: " . $e->getMessage());
+    userLog($pdo, "Read", "System", "Failed to count accountants", "Failure");
     dashboardFeedback('Failed to count accountants. Please try again later...');
     exit;
 }
@@ -82,7 +69,7 @@ try {
     
 }   catch(PDOException $e){
     error_log($e->getMessage());
-    logError($pdo, "Failed to count operators: " . $e->getMessage());
+    userLog($pdo, "Read", "System", "Failed to count operators", "Failure");
     dashboardFeedback('Failed to count operators. Please try again later...');
     exit;
 }
@@ -95,7 +82,7 @@ try {
     
 }   catch(PDOException $e){
     error_log($e->getMessage());
-    logError($pdo, "Failed to count managers: " . $e->getMessage());
+    userLog($pdo, "Read", "System", "Failed to count managers", "Failure");
     dashboardFeedback('Failed to count managers. Please try again later.');
     exit;
 }
@@ -109,7 +96,7 @@ try {
     
 }   catch(PDOException $e){
     error_log($e->getMessage());
-    logError($pdo, "Failed to count admin activity in last 7 days: " . $e->getMessage());
+    userLog($pdo, "Read", "System", "Failed to count admin activity in last 7 days", "Failure");
     dashboardFeedback('Failed to count admin activity in last 7 days. Please try again later.');
     exit;
 }
@@ -123,7 +110,7 @@ try {
     
 }   catch(PDOException $e){
     error_log($e->getMessage());
-    logError($pdo, "Failed to count admin activity in last 30 days: " . $e->getMessage());
+    userLog($pdo, "Read", "System", "Failed to count admin activity in last 30 days", "Failure");
     dashboardFeedback('Failed to count admin activity in last 30 days. Please try again later.');
     exit;
 }
@@ -137,7 +124,7 @@ try {
     
 }   catch(PDOException $e){
     error_log($e->getMessage());
-    logError($pdo, "Failed to show last login of admin: " . $e->getMessage());
+    userLog($pdo, "Read", "System", "Failed to count last login of admin", "Failure");
     dashboardFeedback('Failed to show last login of admin. Please try again later.');
     exit;
 }
@@ -158,7 +145,7 @@ try {
 
 } catch(PDOException $e) {
     error_log($e->getMessage());
-    logError($pdo, "Failed to show users: " . $e->getMessage());
+    userLog($pdo, "Read", "System", "Failed to show all users", "Failure");
     dashboardFeedback('Failed to show users. Please try again later.');
     exit;
 }
