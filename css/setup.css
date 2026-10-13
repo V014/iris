@@ -134,6 +134,33 @@ a {
     transform: scale(0.97);
 }
 
+/* ----- BACK BUTTON ----- */
+.back-bar {
+margin-bottom: 1.5rem;
+}
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 1.5rem;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: 2px solid var(--border);
+    background: var(--bg-panel);
+    color: var(--text-color);
+    cursor: pointer;
+}
+.back-btn:hover {
+    transform: translateX(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+.back-btn i {
+    font-size: 1rem;
+}
+
 /* ----- FORM ELEMENTS ----- */
 input {
     background: var(--bg-color);
