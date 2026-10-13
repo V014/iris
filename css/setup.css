@@ -183,7 +183,7 @@ input:focus {
     width: 5%;
 }
 .terms {
-    justify-content: center;
+    text-align: center;
     width: 50rem;
 }
 .terms_heading {

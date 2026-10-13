@@ -14,12 +14,11 @@
       <div class="terms">
         <!-- BACK BUTTON -->
         <div class="back-bar">
-            <a href="initiate.php" class="back-btn">
-                <i class="fas fa-arrow-left"></i> Back
+            <a href="initiate.php" class="back-btn"><i class="fas fa-arrow-left"></i> Back
             </a>
         </div>
         <!-- Terms and conditions -->
-        <h1 class="terms_heading">Iris terms and conditions</h1>
+        <h1 class="terms_heading">Intelligent records information system terms & conditions</h1>
         <p>
             1. You may not use the Software if you are a not the intended user (a maize milling company) located in Malawi due to the pre-set
             values relating to country durisdiction.
