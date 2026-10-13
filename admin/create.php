@@ -89,23 +89,23 @@ require_once "controls/create.php";
               <label>Role <span class="required">*</span></label>
               <select id="role" required>
                 <option value="">Select a role...</option>
-                <option value="cashier">Operator</option>
+                <option value="accountant">Operator</option>
                 <option value="accountant">Accountant</option>
                 <option value="admin-manager">Branch Manager</option>
                 <option value="admin-manager">Business Owner</option>
               </select>
             </div>
 
-            <!-- Branch (visible only for Cashier) -->
+            <!-- Branch (visible only for accountant) -->
             <div class="form-group branch-field" id="branchGroup">
               <label>Branch <span class="required">*</span></label>
               <select id="branch">
                 <option value="">Select a branch...</option>
                 <option value="safalawo">Safalawo</option>
                 <option value="zambia">Zambia</option>
-                <option value="fargo">Fargo</option>
+                <option value="makata">Makata</option>
               </select>
-              <div class="helper-text">Required for Cashier role</div>
+              <div class="helper-text">Required for Accountant role</div>
             </div>
 
             <!-- Status -->
@@ -146,7 +146,7 @@ require_once "controls/create.php";
               <label>Security Settings</label>
               <div class="toggle-group">
                 <div class="toggle-switch">
-                  <input type="checkbox" id="twoFA" />
+                  <input type="checkbox" id="twoFA" value="true" name="twoFA" />
                   <span class="toggle-slider"></span>
                 </div>
                 <label for="twoFA"
@@ -198,7 +198,7 @@ require_once "controls/create.php";
 
         function toggleBranchField() {
           const selectedRole = roleSelect.value;
-          if (selectedRole === "cashier") {
+          if (selectedRole === "accountant") {
             branchGroup.classList.add("visible");
             branchSelect.setAttribute("required", "required");
           } else {
@@ -233,10 +233,10 @@ require_once "controls/create.php";
               return;
             }
 
-            if (role === "cashier" && !branch) {
+            if (role === "accountant" && !branch) {
               toast.className = "toast-message error";
               toast.textContent =
-                "Please select a branch for the Cashier role.";
+                "Please select a branch for the accountant role.";
               return;
             }
 
@@ -252,7 +252,7 @@ require_once "controls/create.php";
               return;
             }
 
-            const roleLabel = role === "cashier" ? `Cashier (${branch})` : role;
+            const roleLabel = role === "accountant" ? `accountant (${branch})` : role;
             toast.className = "toast-message success";
             toast.textContent = `✅ Account for "${fullName}" (${roleLabel}) created successfully!`;
 
