@@ -143,7 +143,7 @@ input {
     border-radius: var(--border-radius);
     /* */
     padding: var(--control-padding);
-    /* width: 100%; */
+    width: 100%;
     font-size: 1rem;
     transition: border 0.2s;
 }
@@ -152,10 +152,15 @@ input:focus {
     outline: 2px solid var(--accent-color);
     outline-offset: 0px;
 }
-.terms{
-    
+.terms_checkbox {
+    width: 5%;
+}
+.terms {
     justify-content: center;
-    width: 50%;
+    width: 50rem;
+}
+.terms_heading {
+    color: var(--accent-color);
 }
 select {
     width: 100%; 

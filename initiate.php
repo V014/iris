@@ -42,9 +42,9 @@
           hx-target="#initiate-feedback"
           hx-swap="innerHTML"
         >
-          <label for="terms" class="terms">
+          <label for="terms">
             I agree to the <a href=terms.php>terms and conditions</a>
-            <input type="checkbox" class="terms" name="terms" id="terms" value="agree" required>
+            <input type="checkbox" class="terms_checkbox" name="terms" id="terms" value="agree" required>
           </label>
           
           <button type="submit" class="btn-primary">
