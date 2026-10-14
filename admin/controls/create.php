@@ -10,9 +10,9 @@ if(!$user_id) {
 }
 
 // Log validation failures too, if you want an audit trail
-function dashboardFeedback(string $message): never {
+function dashboardFeedback(string $message, ?PDO $pdo = null, string $context = ''): never {
     if ($pdo) {
-        userLog($user_id, 'Create', 'User account', $message . 'Failure');
+        userLog($pdo, 'Create', 'User account', $context . ': ' . $message, 'Failure');
     }
     echo '<p>' . htmlspecialchars($message, ENT_QUOTES, 'UTF-8') . '</p>';
     exit;
@@ -36,12 +36,12 @@ $status = $_POST['status'] ?? '';
 
 // check to see if all required fields are filled
 if ($username === '' || $password === '' || $confirm === '' || $role === '' || $contact === '') {
-    dashboardFeedback('All fields are required.');
+    dashboardFeedback('All fields are required.', $pdo, 'Validation');
     exit;
 }
     // check if the password is greater than 8 characters
 if (strlen($password) < 8) {
-    dashboardFeedback('Password must be at least 8 characters long.');
+    dashboardFeedback('Password must be at least 8 characters long.', $pdo, '');
     exit;
 }
 

@@ -3,7 +3,7 @@ CREATE TABLE users(
     username VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     2FA_secret VARCHAR(255),
-    role ENUM("Admin","Accountant","Manager") NOT NULL,
+    role ENUM("System-admin","Machine-operator","Branch-manager","Accountant","Business-owner") NOT NULL,
     status ENUM("Active","Inactive","Terminated") NOT NULL,
     contact VARCHAR(10),
     last_seen DATETIME,
