@@ -1,10 +1,13 @@
 <?php 
 // Include utilities page
 include_once '../controls/utilities.php';
+
 // create function that handles user feedback
-function dashboardFeedback(string $message): never
-{
-    echo '<p>' . htmlspecialchars($message, ENT_QUOTES, 'UTF-8') . '</p>';
+function dashboardFeedback(?PDO $pdo = null, $action, $target, $details, $status): never {
+    if ($pdo) {
+        userLog($pdo, $action, $target, $details, $status);
+    }
+    echo '<p>' . htmlspecialchars($details, ENT_QUOTES, 'UTF-8') . '</p>';
     exit;
 }
 
