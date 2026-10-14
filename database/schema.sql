@@ -14,8 +14,8 @@ CREATE TABLE users(
 CREATE TABLE user_logs(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
-    action VARCHAR(50) NOT NULL,
-    target VARCHAR(50) NOT NULL,
+    action ENUM("Create","Read","Update","Delete","Login","Logout") NOT NULL,
+    target ENUM("System","System settings","User account") NOT NULL,
     details VARCHAR(255) NOT NULL,
     status ENUM("Success","Failure") NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
