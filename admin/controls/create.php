@@ -21,39 +21,72 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit('Method Not Allowed');
 }
 
+// store variables and run checks
+$username = trim($_POST['username'] ?? '');
+$password = trim($_POST['password'] ?? '');
+$role = $_POST['role'] ?? 'User';
+$confirm = trim($_POST['confirm_password'] ?? '');
+$contact = trim($_POST['contact'] ?? '');
+$twoFA = trim($_POST['twoFA'] ?? '');
+$status = $_POST['status'] ?? 'Active';
+
+// check to see if all required fields are filled
+if ($username === '' || $password === '' || $confirm === '' || $role === '' || $contact === '') {
+dashboardFeedback('All fields are required.');
+}
+    // check if the password is greater than 8 characters
+if (strlen($password) < 8) {
+dashboardFeedback('Password must be at least 8 characters long.');
+}
+
+// check if passwords don't match
+if ($password !== $confirm) {
+    dashboardFeedback('Passwords do not match.');
+}
+
+// check if 2FA secret is similar to password
+if ($password === $twoFA) {
+    dashboardFeedback('Two-Factor authentication secret cannot be similar to password');
+}
+
 try{
-    // create user
-    $username = trim($_POST['username'] ?? '');
-    $password = trim($_POST['password'] ?? '');
-    $role = $_POST['role'] ?? 'User';
-    $confirm = trim($_POST['confirm_password'] ?? '');
-    $contact = trim($_POST['contact'] ?? '');
-    $twoFA = trim($_POST['twoFA'] ?? '');
-    $status = $_POST['status'] ?? 'Active';
+    // check if the username already exists for the given role
+    $stmt = $pdo->prepare('SELECT id FROM users WHERE username = :username AND role = :role LIMIT 1');
+    $stmt->execute(['username' => $username, 'role' => $role]);
 
-    // check to see if all required fields are filled
-    if ($username === '' || $password === '' || $confirm === '' || $role === '' || $contact === '') {
-    dashboardFeedback('All fields are required.');
-    }
-     // check if the password is greater than 8 characters
-    if (strlen($password) < 8) {
-    dashboardFeedback('Password must be at least 8 characters long.');
+    if ($stmt->fetch()) {
+        dashboardFeedback('Username already registered.');
     }
 
-    // check if passwords don't match
-    if ($password !== $confirm) {
-        dashboardFeedback('Passwords do not match.');
-    }
+    // encrypt the main password
+    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
-    // check if 2FA secret is similar to password
-    if ($password === $twoFA) {
-        dashboardFeedback('Two-Factor authentication secret cannot be similar to password');
-    }
+    // encrypt the 2FA secret
+    $twoFA_secret = password_hash($twoFA, PASSWORD_DEFAULT);
+
+    $insertStmt = $pdo->prepare('
+        INSERT INTO users (username, role, password, 2FA_secret, status, contact, created_at)
+        VALUES (:username, :role, :password, :2FA_secret, :status, :contact, NOW())
+    ');
+
+    $insertStmt->execute([
+        'username' => $username,
+        'role' => $role,
+        'password' => $passwordHash,
+        '2FA_secret' => $twoFA_secret, 
+        'status' => "Active",
+        'contact' => $contact,
+    ]);
+
+    // log the user entry
+    userLog($pdo,'Create','User account','Successfully created user','Success');
 
 } catch(PDOException $e){
-    error_log($e->getMessage());
     userLog($pdo, "Create", "System", "Failed to create user", "Failure");
     dashboardFeedback('Failed to create user. Please try again later.');
     exit;
 }
+
+header('HX-Redirect: ' . '../manage.php');
+exit;
 ?>

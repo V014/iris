@@ -80,7 +80,6 @@ try {
         default => 'index.php',
     };
 } catch (PDOException $e) {
-    error_log($e->getMessage());
     // Log the error to the user_errors table
     userLog($pdo,'Login','System','Failed setup login','Failure');
     setupFeedback('Account creation failed. Please check the database setup and try again later.');

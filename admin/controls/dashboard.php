@@ -16,8 +16,7 @@ try {
     $getTotalAdmins = $Stmt->fetch();
     
 }   catch(PDOException $e){
-    error_log($e->getMessage());
-    userLogr($pdo, "Read", "System", "Failed to count total admins", "Failure");
+    userLog($pdo, "Read", "System", "Failed to count total admins", "Failure");
     dashboardFeedback('Failed to count total admins. Please try again later.');
     exit;
 }
@@ -29,7 +28,6 @@ try {
     $getTotalInactiveAdmins = $Stmt->fetch();
     
 }   catch(PDOException $e){
-    error_log($e->getMessage());
     userLog($pdo, "Read", "System", "Failed to count inactive admins", "Failure");
     dashboardFeedback('Failed to count inactive admins. Please try again later.');
     exit;
@@ -42,7 +40,6 @@ try {
     $getTotalActiveAdmins = $Stmt->fetch();
     
 }   catch(PDOException $e){
-    error_log($e->getMessage());
     userLog($pdo, "Read", "System", "Failed to count active admins", "Failure");
     dashboardFeedback('Failed to count active admins. Please try again later.');
     exit;
@@ -55,7 +52,6 @@ try {
     $getTotalAccountants = $Stmt->fetch();
     
 }   catch(PDOException $e){
-    error_log($e->getMessage());
     userLog($pdo, "Read", "System", "Failed to count accountants", "Failure");
     dashboardFeedback('Failed to count accountants. Please try again later...');
     exit;
@@ -68,7 +64,6 @@ try {
     $getTotalActiveOperators = $Stmt->fetch();
     
 }   catch(PDOException $e){
-    error_log($e->getMessage());
     userLog($pdo, "Read", "System", "Failed to count operators", "Failure");
     dashboardFeedback('Failed to count operators. Please try again later...');
     exit;
@@ -81,7 +76,6 @@ try {
     $getTotalManagers = $Stmt->fetch();
     
 }   catch(PDOException $e){
-    error_log($e->getMessage());
     userLog($pdo, "Read", "System", "Failed to count managers", "Failure");
     dashboardFeedback('Failed to count managers. Please try again later.');
     exit;
@@ -95,7 +89,6 @@ try {
     $getActivityIn7Days = $Stmt->fetch();
     
 }   catch(PDOException $e){
-    error_log($e->getMessage());
     userLog($pdo, "Read", "System", "Failed to count admin activity in last 7 days", "Failure");
     dashboardFeedback('Failed to count admin activity in last 7 days. Please try again later.');
     exit;
@@ -109,7 +102,6 @@ try {
     $getActivityIn30Days = $Stmt->fetch();
     
 }   catch(PDOException $e){
-    error_log($e->getMessage());
     userLog($pdo, "Read", "System", "Failed to count admin activity in last 30 days", "Failure");
     dashboardFeedback('Failed to count admin activity in last 30 days. Please try again later.');
     exit;
@@ -123,7 +115,6 @@ try {
     $getLastLogin = $Stmt->fetch();
     
 }   catch(PDOException $e){
-    error_log($e->getMessage());
     userLog($pdo, "Read", "System", "Failed to count last login of admin", "Failure");
     dashboardFeedback('Failed to show last login of admin. Please try again later.');
     exit;
@@ -144,7 +135,6 @@ try {
     $getUsers = $Stmt->fetchAll();
 
 } catch(PDOException $e) {
-    error_log($e->getMessage());
     userLog($pdo, "Read", "System", "Failed to show all users", "Failure");
     dashboardFeedback('Failed to show users. Please try again later.');
     exit;
