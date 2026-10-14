@@ -15,7 +15,14 @@ function dashboardFeedback(string $message): never
     exit;
 }
 
+// check for valid request method to server
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    exit('Method Not Allowed');
+}
+
 try{
+    // create user
 
 } catch(PDOException $e){
     error_log($e->getMessage());

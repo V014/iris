@@ -139,7 +139,7 @@
             </div>
 
             <!-- 2FA Toggle -->
-            <div class="form-group full-width">
+            <div class="form-group">
               <label>Security Settings</label>
               <div class="toggle-group">
                 <label class="toggle-switch">
@@ -154,13 +154,14 @@
             </div>
 
             <!-- Notes -->
-            <div class="form-group full-width">
-              <label>Notes (Optional)</label>
-              <textarea
-                id="notes"
-                name="notes"
-                placeholder="Any additional information about this account..."
-              ></textarea>
+            <div class="form-group">
+              <label>twoFA secret(Optional)</label>
+              <input
+                type="text"
+                id="twoFA"
+                name="twoFA"
+                placeholder="Enter 2FA secret"
+              ></input>
             </div>
           </div>
 
