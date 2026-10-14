@@ -54,7 +54,7 @@ require_once "controls/create.php";
           required.
         </div>
 
-        <form id="createAdminForm">
+        <form id="createAdminForm" method="POST" action="controls/create.php">
           <div class="form-grid">
             <!-- Username -->
             <div class="form-group">
@@ -62,6 +62,7 @@ require_once "controls/create.php";
               <input
                 type="text"
                 id="userame"
+                name="username"
                 placeholder="e.g. Jane Doe"
                 required
               />
@@ -87,7 +88,7 @@ require_once "controls/create.php";
             <!-- Role -->
             <div class="form-group">
               <label>Role <span class="required">*</span></label>
-              <select id="role" required>
+              <select id="role" name="role" required>
                 <option value="">Select a role...</option>
                 <option value="accountant">Operator</option>
                 <option value="accountant">Accountant</option>
@@ -99,7 +100,7 @@ require_once "controls/create.php";
             <!-- Branch (visible only for accountant) -->
             <div class="form-group branch-field" id="branchGroup">
               <label>Branch <span class="required">*</span></label>
-              <select id="branch">
+              <select id="branch" name="branch">
                 <option value="">Select a branch...</option>
                 <option value="safalawo">Safalawo</option>
                 <option value="zambia">Zambia</option>
@@ -111,7 +112,7 @@ require_once "controls/create.php";
             <!-- Status -->
             <div class="form-group">
               <label>Status <span class="required">*</span></label>
-              <select id="status" required>
+              <select id="status" name="status" required>
                 <option value="active">Active</option>
                 <option value="inactive">Inactive</option>
               </select>
@@ -123,6 +124,7 @@ require_once "controls/create.php";
               <input
                 type="password"
                 id="password"
+                name="password"
                 placeholder="Min 8 characters"
                 required
                 minlength="8"
@@ -136,6 +138,7 @@ require_once "controls/create.php";
               <input
                 type="password"
                 id="confirmPassword"
+                name="confirmPassword"
                 placeholder="Re-enter password"
                 required
               />
@@ -146,7 +149,7 @@ require_once "controls/create.php";
               <label>Security Settings</label>
               <div class="toggle-group">
                 <div class="toggle-switch">
-                  <input type="checkbox" id="twoFA" value="true" name="twoFA" />
+                  <input type="checkbox" id="twoFA" name="twoFA" value="true" name="twoFA" />
                   <span class="toggle-slider"></span>
                 </div>
                 <label for="twoFA"
@@ -163,6 +166,7 @@ require_once "controls/create.php";
               <label>Notes (Optional)</label>
               <textarea
                 id="notes"
+                name="notes"
                 placeholder="Any additional information about this account..."
               ></textarea>
             </div>
@@ -187,95 +191,6 @@ require_once "controls/create.php";
       </div>
     </div>
 
-    <script>
-      (function () {
-        "use strict";
-
-        // ----- TOGGLE BRANCH FIELD BASED ON ROLE -----
-        const roleSelect = document.getElementById("role");
-        const branchGroup = document.getElementById("branchGroup");
-        const branchSelect = document.getElementById("branch");
-
-        function toggleBranchField() {
-          const selectedRole = roleSelect.value;
-          if (selectedRole === "accountant") {
-            branchGroup.classList.add("visible");
-            branchSelect.setAttribute("required", "required");
-          } else {
-            branchGroup.classList.remove("visible");
-            branchSelect.removeAttribute("required");
-            branchSelect.value = "";
-          }
-        }
-
-        roleSelect.addEventListener("change", toggleBranchField);
-
-        // ----- FORM SUBMISSION -----
-        document
-          .getElementById("createAdminForm")
-          .addEventListener("submit", function (e) {
-            e.preventDefault();
-            const toast = document.getElementById("formToast");
-
-            const fullName = document.getElementById("fullName").value.trim();
-            const email = document.getElementById("email").value.trim();
-            const role = document.getElementById("role").value;
-            const branch = document.getElementById("branch").value;
-            const status = document.getElementById("status").value;
-            const password = document.getElementById("password").value;
-            const confirmPassword =
-              document.getElementById("confirmPassword").value;
-            const twoFA = document.getElementById("twoFA").checked;
-
-            if (!fullName || !email || !role || !password) {
-              toast.className = "toast-message error";
-              toast.textContent = "Please fill in all required fields.";
-              return;
-            }
-
-            if (role === "accountant" && !branch) {
-              toast.className = "toast-message error";
-              toast.textContent =
-                "Please select a branch for the accountant role.";
-              return;
-            }
-
-            if (password !== confirmPassword) {
-              toast.className = "toast-message error";
-              toast.textContent = "Passwords do not match.";
-              return;
-            }
-
-            if (password.length < 8) {
-              toast.className = "toast-message error";
-              toast.textContent = "Password must be at least 8 characters.";
-              return;
-            }
-
-            const roleLabel = role === "accountant" ? `accountant (${branch})` : role;
-            toast.className = "toast-message success";
-            toast.textContent = `✅ Account for "${fullName}" (${roleLabel}) created successfully!`;
-
-            const submitBtn = this.querySelector('button[type="submit"]');
-            submitBtn.disabled = true;
-            submitBtn.innerHTML =
-              '<i class="fas fa-spinner fa-spin"></i> Creating...';
-
-            setTimeout(() => {
-              this.reset();
-              branchGroup.classList.remove("visible");
-              branchSelect.removeAttribute("required");
-              submitBtn.disabled = false;
-              submitBtn.innerHTML =
-                '<i class="fas fa-check-circle"></i> Create Account';
-
-              setTimeout(() => {
-                toast.className = "toast-message";
-                toast.textContent = "";
-              }, 5000);
-            }, 1500);
-          });
-      })();
-    </script>
+    <script src="js/create.js"></script>
   </body>
 </html>
