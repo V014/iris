@@ -65,8 +65,8 @@ try{
     // encrypt the main password
     $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
-    // encrypt the 2FA secret
-    $twoFA_secret = password_hash($twoFA, PASSWORD_DEFAULT);
+    // Store NULL when 2FA is off
+    $twoFA_secret = $twoFA === '' ? null : password_hash($twoFA, PASSWORD_DEFAULT);
 
     $insertStmt = $pdo->prepare('
         INSERT INTO users (username, role, password, 2FA_secret, status, contact, created_at)
