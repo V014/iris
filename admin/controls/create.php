@@ -95,6 +95,6 @@ try{
     exit;
 }
 
-header('HX-Redirect: ../manage.php');
+header('HX-Redirect: admin/manage.php');
 exit;
 ?>

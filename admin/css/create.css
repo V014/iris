@@ -46,6 +46,11 @@ justify-content: center;
 padding: 1.5rem;
 }
 
+.feedback {
+    color: var(--accent-color);
+    padding-bottom: 1rem;
+}
+
 /* ----- MAIN CONTENT (full width, centered) ----- */
 .main-content {
 width: 100%;
