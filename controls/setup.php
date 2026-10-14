@@ -24,10 +24,6 @@ if ($username === '' || $password === '' || $confirm === '' || $role === '' || $
     setupFeedback('All fields are required.');
 }
 
-// if (!in_array($role, $allowedRoles, true)) {
-//     setupFeedback('Please select a valid role.');
-// }
-
 if (strlen($password) < 8) {
     setupFeedback('Password must be at least 8 characters long.');
 }

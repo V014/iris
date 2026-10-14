@@ -23,6 +23,32 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 try{
     // create user
+    $username = trim($_POST['username'] ?? '');
+    $password = trim($_POST['password'] ?? '');
+    $role = $_POST['role'] ?? 'User';
+    $confirm = trim($_POST['confirm_password'] ?? '');
+    $contact = trim($_POST['contact'] ?? '');
+    $twoFA = trim($_POST['twoFA'] ?? '');
+    $status = $_POST['status'] ?? 'Active';
+
+    // check to see if all required fields are filled
+    if ($username === '' || $password === '' || $confirm === '' || $role === '' || $contact === '') {
+    dashboardFeedback('All fields are required.');
+    }
+     // check if the password is greater than 8 characters
+    if (strlen($password) < 8) {
+    dashboardFeedback('Password must be at least 8 characters long.');
+    }
+
+    // check if passwords don't match
+    if ($password !== $confirm) {
+        dashboardFeedback('Passwords do not match.');
+    }
+
+    // check if 2FA secret is similar to password
+    if ($password === $twoFA) {
+        dashboardFeedback('Two-Factor authentication secret cannot be similar to password');
+    }
 
 } catch(PDOException $e){
     error_log($e->getMessage());
