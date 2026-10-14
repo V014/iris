@@ -1,6 +1,6 @@
 <?php
 // Get name of browser
-// Log the user activty
+// Log the user activity
 function userLog($pdo, $action, $target, $details, $status) {
     try {
         $insertStmt = $pdo->prepare('
