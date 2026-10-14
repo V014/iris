@@ -12,7 +12,7 @@ if(!$user_id) {
 // Log validation failures too, if you want an audit trail
 function dashboardFeedback(?PDO $pdo = null, $action, $target, $details, $status): never {
     if ($pdo) {
-        userLog($pdo, $action, $action, $details, $status);
+        userLog($pdo, $action, $target, $details, $status);
     }
     echo '<p>' . htmlspecialchars($details, ENT_QUOTES, 'UTF-8') . '</p>';
     exit;
