@@ -6,12 +6,6 @@
       header('Location: ../index.php');
       exit;
 }
-
-// Include the database connection
-require_once '../controls/connection.php';
-
-// Include the create page
-require_once "controls/create.php";
 ?>
 
 <!doctype html>
@@ -148,13 +142,11 @@ require_once "controls/create.php";
             <div class="form-group full-width">
               <label>Security Settings</label>
               <div class="toggle-group">
-                <div class="toggle-switch">
-                  <input type="checkbox" id="twoFA" name="twoFA" value="true" name="twoFA" />
+                <label class="toggle-switch">
+                  <input type="checkbox" id="twoFA" name="twoFA" value="true" />
                   <span class="toggle-slider"></span>
-                </div>
-                <label for="twoFA"
-                  >Enable Two-Factor Authentication (2FA)</label
-                >
+                </label>
+                <label for="twoFA">Enable Two-Factor Authentication (2FA)</label>
               </div>
               <div class="helper-text">
                 Recommended for enhanced account security
@@ -191,6 +183,6 @@ require_once "controls/create.php";
       </div>
     </div>
 
-    <script src="js/create.js"></script>
+    <!-- <script src="js/create.js"></script> -->
   </body>
 </html>
