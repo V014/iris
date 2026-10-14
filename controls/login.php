@@ -41,18 +41,14 @@ try {
         exit;
     }
 
-    // log the successful login
-    userLog($pdo,'Login','System','Successful login','Success');
-
-    // update user status
-    $updateStmt = $pdo->prepare('UPDATE `users` SET `status` = "Active" WHERE `users`.`id` = :user_id');
-    $updateStmt->execute(['user_id' => $user['id']]);
-
     // refill sessions of already active
     session_regenerate_id(true);
     $_SESSION['user_id'] = $user['id'];
     $_SESSION['username'] = $user['username'];
     $_SESSION['role'] = $user['role'];
+
+    // log the successful login
+    userLog($pdo,'Login','System','Successful login','Success');
 
     // route user to correct dashboard
     $dashboard = match ($user['role']) {
@@ -66,7 +62,6 @@ try {
     error_log($e->getMessage());
     // log the user exit
     userLog($pdo, 'Login', 'System', 'Failed login', 'Failure');
-    alert('Login after setup failed. Please try again later.' . $e->getMessage());
     exit;
 }
 

@@ -12,7 +12,7 @@
 
     try {
         // log the user exit
-        userLog($pdo, 'Logout', 'System', 'Successful login', 'Success');
+        userLog($pdo, 'Logout', 'System', 'User logged out', 'Success');
 
     } catch (PDOException $e) {
         error_log($e->getMessage());

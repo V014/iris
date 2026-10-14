@@ -84,7 +84,7 @@ require_once 'controls/branches.php';
         </nav> -->
 
         <div class="logout-wrapper">
-          <a href="login.php" data-page="logout"
+          <a href="../controls/logout.php" data-page="logout"
             ><i class="fas fa-sign-out-alt"></i> Logout</a
           >
         </div>
