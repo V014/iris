@@ -14,7 +14,7 @@ function dashboardFeedback(?PDO $pdo = null, $action, $target, $details, $status
 // [fill in the KPI's]
 try {
     // Count total admins
-    $Stmt = $pdo->prepare('SELECT COUNT(id) AS total FROM users WHERE role = "Admin"');
+    $Stmt = $pdo->prepare('SELECT COUNT(id) AS total FROM users WHERE role = "System-admin"');
     $Stmt->execute();
     $getTotalAdmins = $Stmt->fetch();
     
@@ -26,7 +26,7 @@ try {
 
 try {
     // Count inactive admins
-    $Stmt = $pdo->prepare('SELECT COUNT(id) AS total FROM users WHERE role = "Admin" AND status = "Inactive"');
+    $Stmt = $pdo->prepare('SELECT COUNT(id) AS total FROM users WHERE role = "System-admin" AND status = "Inactive"');
     $Stmt->execute();
     $getTotalInactiveAdmins = $Stmt->fetch();
     
@@ -38,7 +38,7 @@ try {
 
 try {
     // Count active admins
-    $Stmt = $pdo->prepare('SELECT COUNT(id) AS total FROM users WHERE role = "Admin" AND status = "Active"');
+    $Stmt = $pdo->prepare('SELECT COUNT(id) AS total FROM users WHERE role = "System-admin" AND status = "Active"');
     $Stmt->execute();
     $getTotalActiveAdmins = $Stmt->fetch();
     
@@ -62,7 +62,7 @@ try {
 
 try {
     // Count operators
-    $Stmt = $pdo->prepare('SELECT COUNT(id) AS total FROM users WHERE role = "Operator"');
+    $Stmt = $pdo->prepare('SELECT COUNT(id) AS total FROM users WHERE role = "Machine-operator"');
     $Stmt->execute();
     $getTotalActiveOperators = $Stmt->fetch();
     
@@ -74,7 +74,7 @@ try {
 
 try {
     // Count all managers
-    $Stmt = $pdo->prepare('SELECT COUNT(id) AS total FROM users WHERE role = "Admin"');
+    $Stmt = $pdo->prepare('SELECT COUNT(id) AS total FROM users WHERE role = "System-admin"');
     $Stmt->execute();
     $getTotalManagers = $Stmt->fetch();
     
