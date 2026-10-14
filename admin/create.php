@@ -22,6 +22,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
     <link rel="stylesheet" href="css/create.css">
+    <script src="../js/htmx.org@2.0.0.min.js"></script>
   </head>
   <body>
     <div class="main-content">
@@ -47,6 +48,8 @@
           marked with <span style="color: var(--expenses)">*</span> are
           required.
         </div>
+        <!-- Error messages from PHP render here -->
+        <div id="dashboardFeedback" class="feedback" role="status" aria-live="polite"></div>
 
         <form id="createAdminForm" method="POST" action="controls/create.php">
           <div class="form-grid">
@@ -84,10 +87,11 @@
               <label>Role <span class="required">*</span></label>
               <select id="role" name="role" required>
                 <option value="">Select a role...</option>
-                <option value="accountant">Operator</option>
-                <option value="accountant">Accountant</option>
-                <option value="admin-manager">Branch Manager</option>
-                <option value="admin-manager">Business Owner</option>
+                <option value="System-admin">System Admin</option>
+                <option value="Machine-operator">Machine Operator</option>
+                <option value="Branch-manager">Branch Manager</option>
+                <option value="Accountant">Accountant</option>
+                <option value="Business-owner">Business Owner</option>
               </select>
             </div>
 
@@ -123,7 +127,13 @@
                 required
                 minlength="8"
               />
-              <div class="helper-text">Must be at least 8 characters</div>
+              <div id="password-feedback">
+                <div class="helper-text">
+                  <span id="length-rule" class="length-rule">
+                    ✕ Must be at least 8 characters
+                  </span>
+                </div>
+              </div>
             </div>
 
             <!-- Confirm Password -->
@@ -172,7 +182,7 @@
 
           <!-- Form Actions -->
           <div class="form-actions">
-            <button type="submit" class="btn-primary">
+            <button id="submit-btn" type="submit" class="btn-primary">
               <i class="fas fa-check-circle"></i> Create Account
             </button>
             <!-- <a href="manage-admins.php" class="btn-secondary"
@@ -185,8 +195,8 @@
         </form>
       </div>
     </div>
-    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+    
     <script src="js/twoFA.js"></script>
-    <!-- <script src="js/create.js"></script> -->
+    <script src="../js/password_limit.js"></script>
   </body>
 </html>

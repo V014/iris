@@ -11,7 +11,7 @@ const passwordInput = document.getElementById('password');
       lengthRule.style.color = '#3ddc84';
       submitBtn.disabled = false;
     } else {
-      lengthRule.textContent = '✕ Minimum 8 character password';
+      lengthRule.textContent = '✕ Must be at least 8 characters';
       lengthRule.style.color = '#e74c3c';
       submitBtn.disabled = true;
     }

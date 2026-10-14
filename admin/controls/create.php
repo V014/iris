@@ -81,12 +81,18 @@ try{
     // log the user entry
     userLog($pdo,'Create','User account','Successfully created user','Success');
 
+    // route user to correct dashboard
+    $dashboard = match ('Admin') {
+        'Admin' => '../manage.php',
+        default => 'index.php',
+    };
+
 } catch(PDOException $e){
     userLog($pdo, "Create", "System", "Failed to create user", "Failure");
     dashboardFeedback('Failed to create user. Please try again later.');
     exit;
 }
 
-header('HX-Redirect: ' . '../manage.php');
+header('HX-Redirect: ' . $dashboard);
 exit;
 ?>

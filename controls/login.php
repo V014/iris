@@ -51,9 +51,11 @@ try {
 
     // route user to correct dashboard
     $dashboard = match ($user['role']) {
-        'Admin' => 'admin/dashboard.php',
+        'System-admin' => 'admin/dashboard.php',
+        'Machine-operator' => 'machine-operator/dashboard.php',
+        'Branch-manager' => 'branch-manager/dashboard.php',
         'Accountant' => 'accountant/dashboard.php',
-        'Operator' => 'employee/dashboard.php',
+        'Business-owner' => 'business-owner/dashboard.php',
         default => 'index.php',
     };
 
