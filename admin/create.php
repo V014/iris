@@ -143,25 +143,27 @@
               <label>Security Settings</label>
               <div class="toggle-group">
                 <label class="toggle-switch">
-                  <input type="checkbox" id="twoFA" name="twoFA" value="true" />
+                  <input type="checkbox" id="twoFA-toggle" name="twoFA" value="true" />
                   <span class="toggle-slider"></span>
                 </label>
-                <label for="twoFA">Enable Two-Factor Authentication (2FA)</label>
+                <label for="twoFA-toggle">Enable Two-Factor Authentication (2FA)</label>
               </div>
               <div class="helper-text">
                 Recommended for enhanced account security
               </div>
             </div>
 
-            <!-- Notes -->
+            <!-- 2FA secret -->
             <div class="form-group">
-              <label>twoFA secret(Optional)</label>
+              <label>Two-Factor secret(Optional)</label>
               <input
-                type="text"
-                id="twoFA"
+                type="password"
+                id="twoFA-secret"
                 name="twoFA"
-                placeholder="Enter 2FA secret"
-              ></input>
+                placeholder="Either pin or phrase"
+                disabled
+              />
+              </input>
             </div>
           </div>
 
@@ -183,7 +185,8 @@
         </form>
       </div>
     </div>
-
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+    <script src="js/twoFA.js"></script>
     <!-- <script src="js/create.js"></script> -->
   </body>
 </html>

@@ -243,6 +243,11 @@ display: flex;
     background: #fff;
 }
 
+input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .form-actions {
 display: flex;
 gap: 1rem;
