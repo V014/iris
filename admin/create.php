@@ -58,7 +58,7 @@
               <label>Username <span class="required">*</span></label>
               <input
                 type="text"
-                id="userame"
+                id="username"
                 name="username"
                 placeholder="e.g. Jane Doe"
                 required
@@ -93,18 +93,6 @@
                 <option value="Accountant">Accountant</option>
                 <option value="Business-owner">Business Owner</option>
               </select>
-            </div>
-
-            <!-- Branch (visible only for accountant) -->
-            <div class="form-group branch-field" id="branchGroup">
-              <label>Branch <span class="required">*</span></label>
-              <select id="branch" name="branch">
-                <option value="">Select a branch...</option>
-                <option value="safalawo">Safalawo</option>
-                <option value="zambia">Zambia</option>
-                <option value="makata">Makata</option>
-              </select>
-              <div class="helper-text">Required for Accountant role</div>
             </div>
 
             <!-- Status -->

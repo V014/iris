@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once '../../controls/connection.php';
 require_once '../../controls/utilities.php';
 
@@ -24,8 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 // store variables and run checks
 $username = trim($_POST['username'] ?? '');
 $password = trim($_POST['password'] ?? '');
-$role = $_POST['role'] ?? 'User';
-$confirm = trim($_POST['confirm_password'] ?? '');
+$role = $_POST['role'] ?? '';
+$confirm = trim($_POST['confirmPassword'] ?? '');
 $contact = trim($_POST['contact'] ?? '');
 $twoFA = trim($_POST['twoFA'] ?? '');
 $status = $_POST['status'] ?? 'Active';
