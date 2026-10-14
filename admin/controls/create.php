@@ -5,7 +5,7 @@ require_once '../../controls/utilities.php';
 
 $user_id = $_SESSION['user_id'] ?? null;
 if(!$user_id) {
-    header('HX-Redirect: ../manage.php');
+    header('HX-Redirect: ../../index.php');
     exit;
 }
 
