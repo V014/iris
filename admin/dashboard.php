@@ -144,8 +144,8 @@ require_once 'controls/dashboard.php';
                 <span class="detail-value" id="statRoleAccountant"><?php echo $getTotalAccountants['total']; ?></span>
               </div>
               <div class="stat-detail">
-                <span class="detail-label">Admin Managers</span>
-                <span class="detail-value" id="statRoleAdminManager"><?php echo $getTotalManagers['total']; ?></span>
+                <span class="detail-label">Branch Managers</span>
+                <span class="detail-value" id="statRoleAdminManager"><?php echo $getTotalBranchManagers['total']; ?></span>
               </div>
             </div>
 

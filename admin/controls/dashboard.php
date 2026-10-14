@@ -74,9 +74,9 @@ try {
 
 try {
     // Count all managers
-    $Stmt = $pdo->prepare('SELECT COUNT(id) AS total FROM users WHERE role = "System-admin"');
+    $Stmt = $pdo->prepare('SELECT COUNT(id) AS total FROM users WHERE role = "Branch-Manager"');
     $Stmt->execute();
-    $getTotalManagers = $Stmt->fetch();
+    $getTotalBranchManagers = $Stmt->fetch();
     
 }   catch(PDOException $e){
     error_log('Failed to count managers: ' . $e->getMessage());
