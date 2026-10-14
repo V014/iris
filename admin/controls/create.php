@@ -10,11 +10,11 @@ if(!$user_id) {
 }
 
 // Log validation failures too, if you want an audit trail
-function dashboardFeedback(string $message, ?PDO $pdo = null, string $context = ''): never {
+function dashboardFeedback(?PDO $pdo = null, $action, $target, $details, $status): never {
     if ($pdo) {
-        userLog($pdo, 'Create', 'User account', $context . ': ' . $message, 'Failure');
+        userLog($pdo, $action, $action, $details, $status);
     }
-    echo '<p>' . htmlspecialchars($message, ENT_QUOTES, 'UTF-8') . '</p>';
+    echo '<p>' . htmlspecialchars($details, ENT_QUOTES, 'UTF-8') . '</p>';
     exit;
 }
 
@@ -36,24 +36,24 @@ $status = $_POST['status'] ?? '';
 
 // check to see if all required fields are filled
 if ($username === '' || $password === '' || $confirm === '' || $role === '' || $contact === '') {
-    dashboardFeedback('All fields are required.', $pdo, 'Validation');
+    dashboardFeedback( $pdo, 'Create', 'User account', 'All fields are required.', 'Failure');
     exit;
 }
     // check if the password is greater than 8 characters
 if (strlen($password) < 8) {
-    dashboardFeedback('Password must be at least 8 characters long.', $pdo, '');
+    dashboardFeedback($pdo, 'Create', 'User account', 'Password must be at least 8 characters long.', 'Failure');
     exit;
 }
 
 // check if passwords don't match
 if ($password !== $confirm) {
-    dashboardFeedback('Passwords do not match.');
+    dashboardFeedback($pdo, 'Create', 'User account', 'Passwords do not match.', 'Failure');
     exit;
 }
 
 // check if 2FA secret is similar to password
 if ($twoFA !== '' && $password === $twoFA) {
-    dashboardFeedback('2FA secret cannot be the same as the password.');
+    dashboardFeedback($pdo, 'Create', 'User account', '2FA secret cannot be the same as the password.', 'Failure');
 }
 
 try{
@@ -62,7 +62,7 @@ try{
     $stmt->execute(['username' => $username, 'role' => $role]);
 
     if ($stmt->fetch()) {
-        dashboardFeedback('Username already registered.');
+        dashboardFeedback($pdo, 'Create', 'User account', 'Username already registered.', 'Failure');
         exit;
     }
 
@@ -87,11 +87,11 @@ try{
     ]);
 
     // log the user entry
-    dashboardFeedback('Successfully created user.');
+    userLog($pdo, 'Create', 'User account', 'Successfully created user.', 'Success');
 
 } catch(PDOException $e){
     error_log('User creation failed: ' . $e->getMessage());
-    dashboardFeedback('Failed to create user. Please try again later.');
+    dashboardFeedback($pdo, 'Create', 'User account', 'Failed to create user. Please try again later.', 'Failure');
     exit;
 }
 
