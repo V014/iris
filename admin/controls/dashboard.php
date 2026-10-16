@@ -125,13 +125,25 @@ try {
 
 try {
     // count 2FA Enabled user accounts
-    $Stmt = $pdo->prepare('SELECT COUNT(2FA_secret) AS total FROM users WHERE 2FA_secret != "NULL"');
+    $Stmt = $pdo->prepare('SELECT COUNT(id) AS total FROM users WHERE 2FA_secret IS NOT NULL');
     $Stmt->execute();
     $get2FAEnabled = $Stmt->fetch();
     
 }   catch(PDOException $e){
     error_log('Failed to count 2FA enabled accounts: ' . $e->getMessage());
     dashboardFeedback($pdo, "Read", "System", "Failed to count 2FA enabled accounts", "Failure");
+    exit;
+}
+
+try {
+    // count 2FA pending accounts
+    $Stmt = $pdo->prepare('SELECT COUNT(id) AS total FROM users WHERE 2FA_secret IS NULL');
+    $Stmt->execute();
+    $get2FAPending = $Stmt->fetch();
+    
+}   catch(PDOException $e){
+    error_log('Failed to count 2FA pending accounts: ' . $e->getMessage());
+    dashboardFeedback($pdo, "Read", "System", "Failed to count 2FA pending accounts", "Failure");
     exit;
 }
 

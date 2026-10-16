@@ -179,7 +179,7 @@ require_once 'controls/dashboard.php';
               </div>
               <div class="stat-detail">
                 <span class="detail-label">Pending invites</span>
-                <span class="detail-value" id="statPending">0</span>
+                <span class="detail-value"><?php echo $get2FAPending['total'] ?></span>
               </div>
               <div class="stat-detail">
                 <span class="detail-label">Locked accounts</span>
