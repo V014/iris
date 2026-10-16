@@ -106,7 +106,7 @@
             <input
               type="password"
               id="twoFA-secret"
-              name="twoFA"
+              name="twoFA_secret"
               placeholder="Either pin or phrase"
               disabled
             />

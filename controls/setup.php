@@ -19,6 +19,7 @@ $password = $_POST['password'] ?? '';
 $role = 'Admin'; // Default role for the first user
 $confirm = $_POST['confirm_password'] ?? '';
 $contact = $_POST['contact'] ?? '';
+$twoFA_secret = $_POST['twoFA-secret'] ?? NULL;
 
 if ($username === '' || $password === '' || $confirm === '' || $role === '' || $contact === '') {
     setupFeedback('All fields are required.');
@@ -48,8 +49,8 @@ try {
 
     $passwordHash = password_hash($password, PASSWORD_DEFAULT);
     $insertStmt = $pdo->prepare('
-        INSERT INTO users (username, role, password, status, contact, created_at)
-        VALUES (:username, :role, :password, :status, :contact, NOW())
+        INSERT INTO users (username, role, password, status, contact, 2FA_secret, created_at)
+        VALUES (:username, :role, :password, :status, :contact, :2FA_secret, NOW())
     ');
 
     $insertStmt->execute([
@@ -58,6 +59,7 @@ try {
         'password' => $passwordHash,
         'status' => "Active",
         'contact' => $contact,
+        '2FA_secret' => $twoFA_secret,
     ]);
 
     // Login the user after successful registration
@@ -75,8 +77,6 @@ try {
     // route user to correct dashboard
     $dashboard = match ($role) {
         'Admin' => 'admin/dashboard.php',
-        // 'Accountant' => 'accountant/dashboard.php',
-        // 'Operator' => 'employee/dashboard.php',
         default => 'index.php',
     };
 } catch (PDOException $e) {
