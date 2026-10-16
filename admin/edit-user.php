@@ -122,15 +122,15 @@
             <!-- Status -->
             <div class="form-group">
               <label>Status <span class="required">*</span></label>
-              <select id="status" name="status" value="<?php echo htmlspecialchars($user['status']); ?>" required>
-                <option value="active">Active</option>
-                <option value="inactive">Inactive</option>
+              <select id="status" name="status" required>
+                <option value="active" <?php echo htmlspecialchars($user['status'] === 'Active') ? 'selected' : ''; ?>>Active</option>
+                <option value="inactive" <?php echo htmlspecialchars($user['status'] === 'Inactive') ? 'selected' : ''; ?>>Inactive</option>
               </select>
             </div>
 
             <!-- Password -->
             <div class="form-group">
-              <label>Password <span class="required">*</span></label>
+              <label>Reset Password</label>
               <input
                 type="password"
                 id="password"
@@ -149,24 +149,17 @@
               </div>
             </div>
 
-            <!-- Confirm Password -->
-            <div class="form-group">
-              <label>Confirm Password <span class="required">*</span></label>
-              <input
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                placeholder="Re-enter password"
-                required
-              />
-            </div>
-
             <!-- 2FA Toggle -->
             <div class="form-group">
               <label>Security Settings</label>
               <div class="toggle-group">
                 <label class="toggle-switch">
-                  <input type="checkbox" id="twoFA-toggle" name="twoFA" value="true" />
+                  <input type="checkbox" 
+                          id="twoFA-toggle" 
+                          name="twoFA" 
+                          value="true"
+                           <?php echo (!empty($user['2FA_secret'])) ? 'checked' : ''; ?> 
+                  />
                   <span class="toggle-slider"></span>
                 </label>
                 <label for="twoFA-toggle">Enable Two-Factor Authentication (2FA)</label>
@@ -174,19 +167,6 @@
               <div class="helper-text">
                 Recommended for enhanced account security
               </div>
-            </div>
-
-            <!-- 2FA secret -->
-            <div class="form-group">
-              <label>Two-Factor secret(Optional)</label>
-              <input
-                type="password"
-                id="twoFA-secret"
-                name="twoFA"
-                placeholder="Either pin or phrase"
-                disabled
-              />
-              </input>
             </div>
           </div>
 
@@ -196,7 +176,7 @@
           <!-- Form Actions -->
           <div class="form-actions">
             <button id="submit-btn" type="submit" class="btn-primary">
-              <i class="fas fa-check-circle"></i> Create Account
+              <i class="fas fa-check-circle"></i> Update Account
             </button>
             <!-- <a href="manage-admins.php" class="btn-secondary"
               ><i class="fas fa-times"></i> Cancel</a
