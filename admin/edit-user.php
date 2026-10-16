@@ -9,6 +9,25 @@
 
   // Include the database connection
   require_once '../controls/connection.php';
+
+  // Include the controls file
+  require_once 'controls/edit-users.php';
+
+  if (isset($_GET['id']) && !empty($_GET['id'])) {
+    $user_id = (int) $_GET['id'];
+    
+    // Fetch the user from the database
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
+    $stmt->execute([$user_id]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    // If the user doesn't exist, stop execution
+    if (!$user) {
+        die("User not found.");
+    }
+  } else {
+      die("No user ID specified.");
+  }
 ?>
 
 <!doctype html>
@@ -19,7 +38,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"
     />
-    <title>Eit user</title>
+    <title>Edit user</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
@@ -38,16 +57,16 @@
 
       <!-- WELCOME CARD (no time/day) -->
       <div class="welcome-card">
-        <h2><i class="fas fa-user-plus"></i> Create User Account</h2>
+        <h2><i class="fas fa-user-pen"></i> Edit User Account</h2>
       </div>
 
       <!-- CREATE FORM -->
       <div class="form-card">
         <div class="form-title">
-          <i class="fas fa-user-shield"></i> New User Account
+          <i class="fas fa-user-shield"></i> Edit User Account
         </div>
         <div class="form-subtitle">
-          Fill in the details below to create a new user account. All fields
+          Edit the fields below to change user details. All fields
           marked with <span style="color: var(--expenses)">*</span> are
           required.
         </div>
@@ -63,6 +82,7 @@
                 type="text"
                 id="username"
                 name="username"
+                value="<?php echo htmlspecialchars($user['username']); ?>"
                 placeholder="e.g. Jane Doe"
                 required
               />
@@ -77,6 +97,7 @@
                 placeholder="e.g. 0912345678"
                 required
                 name="contact"
+                value="<?php echo htmlspecialchars($user['contact']); ?>"
                 maxlength=10
                 minlength=10
                 pattern="^(\+265|0)(1|31|[89]\d)\d{6,7}$"
@@ -90,18 +111,18 @@
               <label>Role <span class="required">*</span></label>
               <select id="role" name="role" required>
                 <option value="">Select a role...</option>
-                <option value="System-admin">System Admin</option>
-                <option value="Machine-operator">Machine Operator</option>
-                <option value="Branch-manager">Branch Manager</option>
-                <option value="Accountant">Accountant</option>
-                <option value="Business-owner">Business Owner</option>
+                <option value="System-admin" <?php echo htmlspecialchars($user['role'] === 'System-admin') ? 'selected' : ''; ?>>System Admin</option>
+                <option value="Machine-operator" <?php echo htmlspecialchars($user['role'] === 'Machine-operator') ? 'selected' : ''; ?>>Machine Operator</option>
+                <option value="Branch-manager" <?php echo htmlspecialchars($user['role'] === 'Branch-manager') ? 'selected' : ''; ?>>Branch Manager</option>
+                <option value="Accountant" <?php echo htmlspecialchars($user['role'] === 'Accountant') ? 'selected' : ''; ?>>Accountant</option>
+                <option value="Business-owner" <?php echo htmlspecialchars($user['role'] === 'Business-owner') ? 'selected' : ''; ?>>Business Owner</option>
               </select>
             </div>
 
             <!-- Status -->
             <div class="form-group">
               <label>Status <span class="required">*</span></label>
-              <select id="status" name="status" required>
+              <select id="status" name="status" value="<?php echo htmlspecialchars($user['status']); ?>" required>
                 <option value="active">Active</option>
                 <option value="inactive">Inactive</option>
               </select>
@@ -114,6 +135,7 @@
                 type="password"
                 id="password"
                 name="password"
+                value=""
                 placeholder="Min 8 characters"
                 required
                 minlength="8"
