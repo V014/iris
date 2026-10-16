@@ -128,46 +128,8 @@
               </select>
             </div>
 
-            <!-- Password -->
-            <div class="form-group">
-              <label>Reset Password</label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                value=""
-                placeholder="Min 8 characters"
-                required
-                minlength="8"
-              />
-              <div id="password-feedback">
-                <div class="helper-text">
-                  <span id="length-rule" class="length-rule">
-                    ✕ Must be at least 8 characters
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <!-- 2FA Toggle -->
-            <div class="form-group">
-              <label>Security Settings</label>
-              <div class="toggle-group">
-                <label class="toggle-switch">
-                  <input type="checkbox" 
-                          id="twoFA-toggle" 
-                          name="twoFA" 
-                          value="true"
-                           <?php echo (!empty($user['2FA_secret'])) ? 'checked' : ''; ?> 
-                  />
-                  <span class="toggle-slider"></span>
-                </label>
-                <label for="twoFA-toggle">Enable Two-Factor Authentication (2FA)</label>
-              </div>
-              <div class="helper-text">
-                Recommended for enhanced account security
-              </div>
-            </div>
+            
+            
           </div>
 
           <!-- Toast message -->
