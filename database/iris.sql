@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 10, 2026 at 08:48 PM
+-- Generation Time: Oct 16, 2026 at 05:44 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -33,31 +33,9 @@ CREATE TABLE `branches` (
   `description` text DEFAULT NULL,
   `location` varchar(255) NOT NULL,
   `status` enum('Active','Inactive') NOT NULL,
+  `milling_price` int(11) NOT NULL,
+  `shelling_price` int(11) NOT NULL,
   `created_at` datetime NOT NULL,
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `employees`
---
-
-CREATE TABLE `employees` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `branch_id` int(11) NOT NULL,
-  `first_name` varchar(255) NOT NULL,
-  `last_name` varchar(255) NOT NULL,
-  `date_of_birth` date NOT NULL,
-  `gender` enum('Male','Female') NOT NULL,
-  `marital_status` enum('Single','Married') DEFAULT NULL,
-  `religion` enum('Christian','Islamic','N/a') DEFAULT NULL,
-  `bank` enum('Standard Bank','National Bank','New Building Society','First Discount House','First Capital Bank','Eco Bank','Centenary Bank') DEFAULT NULL,
-  `bank_account_number` varchar(255) DEFAULT NULL,
-  `tenure` enum('Full-time','Part-time') NOT NULL,
-  `hired_at` datetime NOT NULL,
-  `terminated_at` datetime DEFAULT NULL,
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -70,8 +48,8 @@ CREATE TABLE `employees` (
 CREATE TABLE `expenses` (
   `id` int(11) NOT NULL,
   `branch_id` int(11) NOT NULL,
-  `employee_id` int(11) NOT NULL,
-  `expense_type` enum('Electricity','Lunch','Water','Overtime','Bulb','Broom','Welding','Spares','Maintenance','Malichelo','Buckets','Neighborhood','Other') NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `expense_id` int(11) NOT NULL,
   `description` text DEFAULT NULL,
   `quantity` int(11) NOT NULL,
   `amount` int(11) NOT NULL,
@@ -82,13 +60,44 @@ CREATE TABLE `expenses` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `expense_type`
+--
+
+CREATE TABLE `expense_type` (
+  `id` int(11) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `expense_type`
+--
+
+INSERT INTO `expense_type` (`id`, `type`, `created_at`, `updated_at`) VALUES
+(1, 'Electricity', '2026-10-16 17:40:21', '2026-10-16 15:41:11'),
+(2, 'Lunch', '2026-10-16 17:40:21', '2026-10-16 15:41:11'),
+(3, 'Overtime', '2026-10-16 17:41:11', '2026-10-16 15:41:41'),
+(4, 'Water', '2026-10-16 17:41:11', '2026-10-16 15:41:41'),
+(5, 'Bulb', '2026-10-16 17:41:55', '2026-10-16 15:43:56'),
+(6, 'Broom', '2026-10-16 17:41:55', '2026-10-16 15:43:56'),
+(7, 'Welding', '2026-10-16 17:41:55', '2026-10-16 15:43:56'),
+(8, 'Buckets', '2026-10-16 17:41:55', '2026-10-16 15:43:56'),
+(9, 'Malichelo', '2026-10-16 17:41:55', '2026-10-16 15:43:56'),
+(10, 'Neighborhood watch', '2026-10-16 17:41:55', '2026-10-16 15:43:56'),
+(11, 'Spares', '2026-10-16 17:41:55', '2026-10-16 15:43:56'),
+(12, 'Maintenance', '2026-10-16 17:41:55', '2026-10-16 15:43:56');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `sales`
 --
 
 CREATE TABLE `sales` (
   `id` int(11) NOT NULL,
   `branch_id` int(11) NOT NULL,
-  `employee_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `opening_units` float NOT NULL,
   `closing_units` float NOT NULL,
   `used_units` float NOT NULL,
@@ -112,7 +121,7 @@ CREATE TABLE `users` (
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `2FA_secret` varchar(255) DEFAULT NULL,
-  `role` enum('Admin','Accountant','Manager') NOT NULL,
+  `role` enum('System-admin','Machine-operator','Branch-manager','Accountant','Business-owner') NOT NULL,
   `status` enum('Active','Inactive','Terminated') NOT NULL,
   `contact` varchar(10) DEFAULT NULL,
   `last_seen` datetime DEFAULT NULL,
@@ -147,20 +156,19 @@ ALTER TABLE `branches`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `employees`
---
-ALTER TABLE `employees`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `branch_id` (`branch_id`),
-  ADD KEY `assets_ibfk_1` (`user_id`);
-
---
 -- Indexes for table `expenses`
 --
 ALTER TABLE `expenses`
   ADD PRIMARY KEY (`id`),
   ADD KEY `branch_id` (`branch_id`),
-  ADD KEY `employee_id` (`employee_id`);
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `expense_id` (`expense_id`);
+
+--
+-- Indexes for table `expense_type`
+--
+ALTER TABLE `expense_type`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `sales`
@@ -168,7 +176,7 @@ ALTER TABLE `expenses`
 ALTER TABLE `sales`
   ADD PRIMARY KEY (`id`),
   ADD KEY `branch_id` (`branch_id`),
-  ADD KEY `employee_id` (`employee_id`);
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `users`
@@ -195,16 +203,16 @@ ALTER TABLE `branches`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `employees`
---
-ALTER TABLE `employees`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `expenses`
 --
 ALTER TABLE `expenses`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `expense_type`
+--
+ALTER TABLE `expense_type`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `sales`
@@ -229,25 +237,19 @@ ALTER TABLE `user_logs`
 --
 
 --
--- Constraints for table `employees`
---
-ALTER TABLE `employees`
-  ADD CONSTRAINT `assets_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `employees_ibfk_1` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`);
-
---
 -- Constraints for table `expenses`
 --
 ALTER TABLE `expenses`
   ADD CONSTRAINT `expenses_ibfk_1` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`),
-  ADD CONSTRAINT `expenses_ibfk_2` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`);
+  ADD CONSTRAINT `expenses_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `expenses_ibfk_3` FOREIGN KEY (`expense_id`) REFERENCES `expense_type` (`id`);
 
 --
 -- Constraints for table `sales`
 --
 ALTER TABLE `sales`
   ADD CONSTRAINT `sales_ibfk_1` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`),
-  ADD CONSTRAINT `sales_ibfk_2` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`);
+  ADD CONSTRAINT `sales_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `user_logs`
