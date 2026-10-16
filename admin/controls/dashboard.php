@@ -123,7 +123,19 @@ try {
     exit;
 }
 
-// read table data
+try {
+    // count 2FA Enabled user accounts
+    $Stmt = $pdo->prepare('SELECT COUNT(2FA_secret) AS total FROM users WHERE 2FA_secret != "NULL"');
+    $Stmt->execute();
+    $get2FAEnabled = $Stmt->fetch();
+    
+}   catch(PDOException $e){
+    error_log('Failed to count 2FA enabled accounts: ' . $e->getMessage());
+    dashboardFeedback($pdo, "Read", "System", "Failed to count 2FA enabled accounts", "Failure");
+    exit;
+}
+
+// read table data //
 try {
     // show user and user_log table
     $Stmt = $pdo->prepare('SELECT u.id, u.username, u.role, u.status, u.contact, 

@@ -175,7 +175,7 @@ require_once 'controls/dashboard.php';
               </div>
               <div class="stat-detail">
                 <span class="detail-label">2FA Enabled</span>
-                <span class="detail-value" id="stat2fa">0</span>
+                <span class="detail-value"><?php echo $get2FAEnabled['total'] ?></span>
               </div>
               <div class="stat-detail">
                 <span class="detail-label">Pending invites</span>
