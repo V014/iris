@@ -24,10 +24,12 @@ CREATE TABLE user_logs(
 
 CREATE TABLE branches (
     id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name varchar(255) NOT NULL,
-    description text DEFAULT NULL,
-    location varchar(255) NOT NULL,
-    status enum('Active','Inactive') NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    description TEXT DEFAULT NULL,
+    location VARCHAR(255) NOT NULL,
+    status ENUM('Active','Inactive') NOT NULL,
+    milling_price INT NOT NULL,
+    shelling_price INT NOT NULL,
     created_at datetime NOT NULL,
     updated_at timestamp NOT NULL DEFAULT current_timestamp()
 );
@@ -46,37 +48,37 @@ CREATE TABLE branches (
 --     FOREIGN KEY (branch_id) REFERENCES branches(id)
 -- );
 
-CREATE TABLE employees(
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    branch_id INT NOT NULL,
-    first_name VARCHAR(255) NOT NULL,
-    last_name VARCHAR(255) NOT NULL,
-    date_of_birth DATE NOT NULL,
-    gender ENUM("Male","Female") NOT NULL,
-    marital_status ENUM("Single","Married"),
-    religion ENUM("Christian","Islamic","N/a"),
-    bank Enum("Standard Bank","National Bank","New Building Society","First Discount House","First Capital Bank","Eco Bank","Centenary Bank"),
-    bank_account_number VARCHAR(255),
-    tenure ENUM("Full-time","Part-time") NOT NULL,
-    hired_at DATETIME NOT NULL,
-    terminated_at DATETIME,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (branch_id) REFERENCES branches(id)
-);
+-- CREATE TABLE employees(
+-- 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+--     branch_id INT NOT NULL,
+--     first_name VARCHAR(255) NOT NULL,
+--     last_name VARCHAR(255) NOT NULL,
+--     date_of_birth DATE NOT NULL,
+--     gender ENUM("Male","Female") NOT NULL,
+--     marital_status ENUM("Single","Married"),
+--     religion ENUM("Christian","Islamic","N/a"),
+--     bank Enum("Standard Bank","National Bank","New Building Society","First Discount House","First Capital Bank","Eco Bank","Centenary Bank"),
+--     bank_account_number VARCHAR(255),
+--     tenure ENUM("Full-time","Part-time") NOT NULL,
+--     hired_at DATETIME NOT NULL,
+--     terminated_at DATETIME,
+--     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     FOREIGN KEY (branch_id) REFERENCES branches(id)
+-- );
 
-CREATE TABLE attendance(
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    employee_id INT NOT NULL,
-    status ENUM("Present","Absent","Late","Leave"),
-    clock_int DATETIME NOT NULL,
-    clock_out DATETIME NOT NULL,
-    FOREIGN KEY (employee_id) REFERENCES employees(id)
-);
+-- CREATE TABLE attendance(
+--     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+--     employee_id INT NOT NULL,
+--     status ENUM("Present","Absent","Late","Leave"),
+--     clock_int DATETIME NOT NULL,
+--     clock_out DATETIME NOT NULL,
+--     FOREIGN KEY (employee_id) REFERENCES employees(id)
+-- );
 
 CREATE TABLE sales(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     branch_id INT NOT NULL,
-    employee_id INT NOT NULL,
+    user_id INT NOT NULL,
     opening_units FLOAT NOT NULL,
     closing_units FLOAT NOT NULL,
     used_units FLOAT NOT NULL,
@@ -88,23 +90,31 @@ CREATE TABLE sales(
     created_at DATETIME NOT NULL,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (branch_id) REFERENCES branches(id),
-    FOREIGN KEY (employee_id) REFERENCES employees(id)
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE expense_type(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    type VARCHAR(255) NOT NULL,
+    created_at DATETIME NOT NULL,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE expenses(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     branch_id INT NOT NULL,
-    employee_id INT NOT NULL,
-    expense_type ENUM("Electricity","Lunch","Water","Overtime","Bulb","Broom","Welding","Spares","Maintenance","Malichelo","Buckets","Neighborhood","Other") NOT NULL,
+    user_id INT NOT NULL,
+    expense_id INT NOT NULL,
     description TEXT,
     quantity INT NOT NULL,
     amount INT NOT NULL,
     created_at DATE NOT NULL,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (branch_id) REFERENCES branches(id),
-    FOREIGN KEY (employee_id) REFERENCES employees(id)
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (expense_id) REFERENCES expense_type(id) 
 );
-
+-- expense_type ENUM("Electricity","Lunch","Water","Overtime","Bulb","Broom","Welding","Spares","Maintenance","Malichelo","Buckets","Neighborhood","Other") NOT NULL,
 -- CREATE TABLE payroll(
 --     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 --     branch_id INT,
