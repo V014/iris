@@ -94,6 +94,23 @@
               oninput="this.value = this.value.replace(/[^0-9+]/g, '')"
             />
           </div>
+          <div>
+            <!-- <label for="2FA">2FA</label> -->
+            <div class="toggle-group">
+              <label class="toggle-switch">
+                  <input type="checkbox" id="twoFA-toggle" name="twoFA" value="true" />
+                  <span class="toggle-slider"></span>
+              </label>
+              <label for="twoFA-toggle">Enable Two-Factor Authentication (2FA)</label>
+            </div>
+            <input
+              type="password"
+              id="twoFA-secret"
+              name="twoFA"
+              placeholder="Either pin or phrase"
+              disabled
+            />
+          </div>
           <button type="submit" class="btn-primary">
             <i class="fas fa-sign-in-alt"></i> Create User
           </button>
@@ -104,5 +121,6 @@
     </div>
     
 </body>
+<script src="js/twoFA.js"></script>
 <script src="js/password_limit.js"></script>
 </html>

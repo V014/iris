@@ -184,7 +184,7 @@
       </div>
     </div>
     
-    <script src="js/twoFA.js"></script>
+    <script src="../js/twoFA.js"></script>
     <script src="../js/password_limit.js"></script>
   </body>
 </html>

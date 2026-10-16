@@ -54,7 +54,7 @@ try {
 
     $insertStmt->execute([
         'username' => $username,
-        'role' => $role,
+        'role' => 'System-admin',
         'password' => $passwordHash,
         'status' => "Active",
         'contact' => $contact,
