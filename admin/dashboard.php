@@ -183,7 +183,7 @@ require_once 'controls/dashboard.php';
               </div>
               <div class="stat-detail">
                 <span class="detail-label">Locked accounts</span>
-                <span class="detail-value" id="statLocked">0</span>
+                <span class="detail-value"><?php echo $getLockedAccounts['total'] ?></span>
               </div>
             </div>
           </div>

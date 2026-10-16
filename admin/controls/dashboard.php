@@ -147,6 +147,18 @@ try {
     exit;
 }
 
+try {
+    // count 2FA pending accounts
+    $Stmt = $pdo->prepare('SELECT COUNT(id) AS total FROM users WHERE status ="Inactive"');
+    $Stmt->execute();
+    $getLockedAccounts = $Stmt->fetch();
+    
+}   catch(PDOException $e){
+    error_log('Failed to count 2FA pending accounts: ' . $e->getMessage());
+    dashboardFeedback($pdo, "Read", "System", "Failed to count 2FA pending accounts", "Failure");
+    exit;
+}
+
 // read table data //
 try {
     // show user and user_log table
