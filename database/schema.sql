@@ -1,3 +1,7 @@
+-- ═══════════════════════════════════════════════════════════════
+-- USERS
+-- ═══════════════════════════════════════════════════════════════
+
 CREATE TABLE users(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) NOT NULL UNIQUE,
@@ -11,6 +15,10 @@ CREATE TABLE users(
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- ═══════════════════════════════════════════════════════════════
+-- USER LOGS  (audit trail; target_id points at the affected row)
+-- ═══════════════════════════════════════════════════════════════
 
 CREATE TABLE user_logs(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -38,6 +46,10 @@ CREATE TABLE role_permissions (
     created_at DATETIME NOT NULL,
     updated_at timestamp NOT NULL DEFAULT current_timestamp()
 )
+
+-- ═══════════════════════════════════════════════════════════════
+-- BRANCHES  (electricity_tariff = current MWK per kWh, default 295)
+-- ═══════════════════════════════════════════════════════════════
 
 CREATE TABLE branches (
     id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
