@@ -93,23 +93,63 @@ CREATE TABLE branches (
 --     FOREIGN KEY (employee_id) REFERENCES employees(id)
 -- );
 
-CREATE TABLE sales(
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    branch_id INT NOT NULL,
-    user_id INT NOT NULL,
-    opening_units FLOAT NOT NULL,
-    closing_units FLOAT NOT NULL,
-    used_units FLOAT NOT NULL,
-    miller INT,
-    sheller INT,
-    total_daily INT,
-    unit_price INT,
-    remarks TEXT,
-    created_at DATETIME NOT NULL,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (branch_id) REFERENCES branches(id),
-    FOREIGN KEY (user_id) REFERENCES users(id)
+
+-- ─────────────────────────────────────────────
+-- DAILY BRANCH LOG
+-- One row per branch per day, mirroring the physical book:
+--   top half   = electricity meter readings
+--   bottom half = money earned by each machine
+-- ─────────────────────────────────────────────
+CREATE TABLE daily_branch_log (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  branch_id INT NOT NULL,
+  user_id INT NOT NULL,
+
+  -- Electricity (kWh)
+  opening_units FLOAT NOT NULL,
+  closing_units FLOAT NOT NULL,
+  used_units FLOAT AS (closing_units - opening_units) STORED,
+  electricity_tariff_at_record INT NOT NULL,       -- snapshot of branches.electricity_tariff
+  electricity_cost INT AS (
+    ROUND((closing_units - opening_units) * electricity_tariff_at_record)
+  ) STORED,
+
+  -- Revenue (money earned by each machine)
+  miller INT NOT NULL,
+  sheller INT NOT NULL,
+  total_daily INT AS (miller + sheller) STORED,
+
+  -- Efficiency KPI (NOT a price)
+  revenue_per_kwh DECIMAL(10,2) AS (
+    (miller + sheller) / NULLIF(closing_units - opening_units, 0)
+  ) STORED,
+
+  remarks TEXT,
+  created_at DATE NOT NULL,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+  UNIQUE KEY uq_branch_day (branch_id, created_at),
+  FOREIGN KEY (branch_id) REFERENCES branches(id),
+  FOREIGN KEY (user_id)    REFERENCES users(id)
 );
+
+-- CREATE TABLE sales(
+--     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+--     branch_id INT NOT NULL,
+--     user_id INT NOT NULL,
+--     opening_units FLOAT NOT NULL,
+--     closing_units FLOAT NOT NULL,
+--     used_units FLOAT NOT NULL,
+--     miller INT,
+--     sheller INT,
+--     total_daily INT,
+--     unit_price INT,
+--     remarks TEXT,
+--     created_at DATETIME NOT NULL,
+--     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     FOREIGN KEY (branch_id) REFERENCES branches(id),
+--     FOREIGN KEY (user_id) REFERENCES users(id)
+-- );
 
 CREATE TABLE expense_type(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
