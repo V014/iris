@@ -47,6 +47,7 @@ CREATE TABLE branches (
     status ENUM('Active','Inactive') NOT NULL,
     milling_price INT NOT NULL,
     shelling_price INT NOT NULL,
+    electricity_tariff INT NOT NULL DEFAULT 295,
     created_at datetime NOT NULL,
     updated_at timestamp NOT NULL DEFAULT current_timestamp()
 );
