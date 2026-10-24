@@ -193,8 +193,8 @@ CREATE TABLE expenses(
 CREATE VIEW v_daily_branch_performance AS
 SELECT
   log.branch_id,
-  log.created_at                              AS day,
-  log.milling_revenue + log.shelling_revenue                    AS revenue,
+  log.log_date                                AS day,
+  log.milling_revenue + log.shelling_revenue  AS revenue,
   log.electricity_cost                        AS electricity_cost,
   COALESCE(exp.other_expenses, 0)             AS other_expenses,
   (log.milling_revenue + log.shelling_revenue)
