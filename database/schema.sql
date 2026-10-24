@@ -6,6 +6,7 @@ CREATE TABLE users(
     role ENUM("System-admin","Machine-operator","Branch-manager","Accountant","Business-owner") NOT NULL,
     status ENUM("Active","Inactive","Terminated") NOT NULL,
     contact VARCHAR(10),
+    password_reset ENUM("True","False"),
     last_seen DATETIME,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -21,6 +22,21 @@ CREATE TABLE user_logs(
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
+
+CREATE TABLE roles (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name TEXT NOT NULL,
+    created_at DATETIME NOT NULL,
+    updated_at timestamp NOT NULL DEFAULT current_timestamp()
+)
+
+CREATE TABLE role_permissions (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    created_at DATETIME NOT NULL,
+    updated_at timestamp NOT NULL DEFAULT current_timestamp()
+)
 
 CREATE TABLE branches (
     id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
