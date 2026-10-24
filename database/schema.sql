@@ -118,12 +118,12 @@ CREATE TABLE daily_branch_log (
   user_id INT NOT NULL,
 
   -- Electricity (kWh)
-  opening_units FLOAT NOT NULL,
-  closing_units FLOAT NOT NULL,
-  used_units FLOAT AS (closing_units - opening_units) STORED,
+  opening_kwh FLOAT NOT NULL,
+  closing_kwh FLOAT NOT NULL,
+  used_kwh FLOAT AS (closing_kwh - opening_kwh) STORED,
   electricity_tariff_at_record INT NOT NULL,       -- snapshot of branches.electricity_tariff
   electricity_cost INT AS (
-    ROUND((closing_units - opening_units) * electricity_tariff_at_record)
+    ROUND((closing_kwh - opening_kwh) * electricity_tariff_at_record)
   ) STORED,
 
   -- Revenue (money earned by each machine)
@@ -133,7 +133,7 @@ CREATE TABLE daily_branch_log (
 
   -- Efficiency KPI (NOT a price)
   revenue_per_kwh DECIMAL(10,2) AS (
-    (miller + sheller) / NULLIF(closing_units - opening_units, 0)
+    (miller + sheller) / NULLIF(closing_kwh - opening_kwh, 0)
   ) STORED,
 
   remarks TEXT,
@@ -149,9 +149,9 @@ CREATE TABLE daily_branch_log (
 --     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 --     branch_id INT NOT NULL,
 --     user_id INT NOT NULL,
---     opening_units FLOAT NOT NULL,
---     closing_units FLOAT NOT NULL,
---     used_units FLOAT NOT NULL,
+--     opening_kwh FLOAT NOT NULL,
+--     closing_kwh FLOAT NOT NULL,
+--     used_kwh FLOAT NOT NULL,
 --     miller INT,
 --     sheller INT,
 --     total_daily INT,
@@ -200,7 +200,7 @@ SELECT
   (log.miller + log.sheller)
     - log.electricity_cost
     - COALESCE(exp.other_expenses, 0)         AS net_profit,
-  log.used_units                              AS kwh_used,
+  log.used_kwh                              AS kwh_used,
   log.revenue_per_kwh                         AS mwk_per_kwh
 FROM daily_branch_log log
 LEFT JOIN (
@@ -225,15 +225,15 @@ AFTER UPDATE ON daily_branch_log
 FOR EACH ROW
 BEGIN
   IF OLD.miller <> NEW.miller OR OLD.sheller <> NEW.sheller
-     OR OLD.opening_units <> NEW.opening_units
-     OR OLD.closing_units <> NEW.closing_units THEN
+     OR OLD.opening_kwh <> NEW.opening_kwh
+     OR OLD.closing_kwh <> NEW.closing_kwh THEN
     INSERT INTO user_logs (user_id, action, target, target_id, details, status)
     VALUES (
       NEW.user_id, 'Update', 'Sale', NEW.id,
       CONCAT('old: miller=', OLD.miller, ', sheller=', OLD.sheller,
-             ', open=', OLD.opening_units, ', close=', OLD.closing_units,
+             ', open=', OLD.opening_kwh, ', close=', OLD.closing_kwh,
              ' | new: miller=', NEW.miller, ', sheller=', NEW.sheller,
-             ', open=', NEW.opening_units, ', close=', NEW.closing_units),
+             ', open=', NEW.opening_kwh, ', close=', NEW.closing_kwh),
       'Success'
     );
   END IF;
