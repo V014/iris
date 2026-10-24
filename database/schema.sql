@@ -127,17 +127,17 @@ CREATE TABLE daily_branch_log (
   ) STORED,
 
   -- Revenue (money earned by each machine)
-  miller INT NOT NULL,
-  sheller INT NOT NULL,
-  total_daily INT AS (miller + sheller) STORED,
+  milling_revenue INT NOT NULL,
+  shelling_revenue INT NOT NULL,
+  total_revenue INT AS (milling_revenue + shelling_revenue) STORED,
 
   -- Efficiency KPI (NOT a price)
   revenue_per_kwh DECIMAL(10,2) AS (
-    (miller + sheller) / NULLIF(closing_kwh - opening_kwh, 0)
+    (milling_revenue + shelling_revenue) / NULLIF(closing_kwh - opening_kwh, 0)
   ) STORED,
 
   remarks TEXT,
-  created_at DATE NOT NULL,
+  log_date DATE NOT NULL,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
   UNIQUE KEY uq_branch_day (branch_id, created_at),
@@ -152,8 +152,8 @@ CREATE TABLE daily_branch_log (
 --     opening_kwh FLOAT NOT NULL,
 --     closing_kwh FLOAT NOT NULL,
 --     used_kwh FLOAT NOT NULL,
---     miller INT,
---     sheller INT,
+--     milling_revenue INT,
+--     shelling_revenue INT,
 --     total_daily INT,
 --     unit_price INT,
 --     remarks TEXT,
@@ -194,10 +194,10 @@ CREATE VIEW v_daily_branch_performance AS
 SELECT
   log.branch_id,
   log.created_at                              AS day,
-  log.miller + log.sheller                    AS revenue,
+  log.milling_revenue + log.shelling_revenue                    AS revenue,
   log.electricity_cost                        AS electricity_cost,
   COALESCE(exp.other_expenses, 0)             AS other_expenses,
-  (log.miller + log.sheller)
+  (log.milling_revenue + log.shelling_revenue)
     - log.electricity_cost
     - COALESCE(exp.other_expenses, 0)         AS net_profit,
   log.used_kwh                              AS kwh_used,
@@ -208,7 +208,7 @@ LEFT JOIN (
   FROM expenses
   WHERE NOT is_void
   GROUP BY branch_id, created_at
-) exp ON exp.branch_id = log.branch_id AND exp.d = log.created_at;
+) exp ON exp.branch_id = log.branch_id AND exp.d = log.log_date;
 
 
 -- ─────────────────────────────────────────────
@@ -224,15 +224,15 @@ CREATE TRIGGER trg_daily_log_update
 AFTER UPDATE ON daily_branch_log
 FOR EACH ROW
 BEGIN
-  IF OLD.miller <> NEW.miller OR OLD.sheller <> NEW.sheller
+  IF OLD.milling_revenue <> NEW.milling_revenue OR OLD.shelling_revenue <> NEW.shelling_revenue
      OR OLD.opening_kwh <> NEW.opening_kwh
      OR OLD.closing_kwh <> NEW.closing_kwh THEN
     INSERT INTO user_logs (user_id, action, target, target_id, details, status)
     VALUES (
       NEW.user_id, 'Update', 'Sale', NEW.id,
-      CONCAT('old: miller=', OLD.miller, ', sheller=', OLD.sheller,
+      CONCAT('old: milling_revenue=', OLD.milling_revenue, ', shelling_revenue=', OLD.shelling_revenue,
              ', open=', OLD.opening_kwh, ', close=', OLD.closing_kwh,
-             ' | new: miller=', NEW.miller, ', sheller=', NEW.sheller,
+             ' | new: milling_revenue=', NEW.milling_revenue, ', shelling_revenue=', NEW.shelling_revenue,
              ', open=', NEW.opening_kwh, ', close=', NEW.closing_kwh),
       'Success'
     );
