@@ -173,6 +173,62 @@ CREATE TABLE expenses(
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (expense_id) REFERENCES expense_type(id) 
 );
+
+-- ─────────────────────────────────────────────
+-- PROFIT VIEW
+-- mwk_per_kwh — is your efficiency KPI
+-- ─────────────────────────────────────────────
+CREATE VIEW v_daily_branch_performance AS
+SELECT
+  log.branch_id,
+  log.created_at                              AS day,
+  log.miller + log.sheller                    AS revenue,
+  log.electricity_cost                        AS electricity_cost,
+  COALESCE(exp.other_expenses, 0)             AS other_expenses,
+  (log.miller + log.sheller)
+    - log.electricity_cost
+    - COALESCE(exp.other_expenses, 0)         AS net_profit,
+  log.used_units                              AS kwh_used,
+  log.revenue_per_kwh                         AS mwk_per_kwh
+FROM daily_branch_log log
+LEFT JOIN (
+  SELECT branch_id, created_at AS d, SUM(amount) AS other_expenses
+  FROM expenses
+  WHERE NOT is_void
+  GROUP BY branch_id, created_at
+) exp ON exp.branch_id = log.branch_id AND exp.d = log.created_at;
+
+
+-- ─────────────────────────────────────────────
+-- AUDIT TRIGGERS
+-- One row per branch per day, mirroring the physical book:
+--   top half   = electricity meter readings
+--   bottom half = money earned by each machine
+-- ─────────────────────────────────────────────
+
+DELIMITER //
+
+CREATE TRIGGER trg_daily_log_update
+AFTER UPDATE ON daily_branch_log
+FOR EACH ROW
+BEGIN
+  IF OLD.miller <> NEW.miller OR OLD.sheller <> NEW.sheller
+     OR OLD.opening_units <> NEW.opening_units
+     OR OLD.closing_units <> NEW.closing_units THEN
+    INSERT INTO user_logs (user_id, action, target, target_id, details, status)
+    VALUES (
+      NEW.user_id, 'Update', 'Sale', NEW.id,
+      CONCAT('old: miller=', OLD.miller, ', sheller=', OLD.sheller,
+             ', open=', OLD.opening_units, ', close=', OLD.closing_units,
+             ' | new: miller=', NEW.miller, ', sheller=', NEW.sheller,
+             ', open=', NEW.opening_units, ', close=', NEW.closing_units),
+      'Success'
+    );
+  END IF;
+END//
+
+DELIMITER ;
+
 -- expense_type ENUM("Electricity","Lunch","Water","Overtime","Bulb","Broom","Welding","Spares","Maintenance","Malichelo","Buckets","Neighborhood","Other") NOT NULL,
 -- CREATE TABLE payroll(
 --     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
