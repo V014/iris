@@ -134,7 +134,7 @@ CREATE TABLE expenses(
 CREATE TABLE expense_type(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    type ENUM("Daily","Maintenance"),
+    type ENUM("Daily-operations","Maintenance-repairs","Fixed-regulatory"),
     created_at DATETIME NOT NULL,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
