@@ -32,6 +32,9 @@ CREATE TABLE user_logs(
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
+-- ═══════════════════════════════════════════════════════════════
+-- ROLES
+-- ═══════════════════════════════════════════════════════════════
 CREATE TABLE roles (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name TEXT NOT NULL,
@@ -39,6 +42,9 @@ CREATE TABLE roles (
     updated_at timestamp NOT NULL DEFAULT current_timestamp()
 )
 
+-- ═══════════════════════════════════════════════════════════════
+-- ROLE PERMISSIONS
+-- ═══════════════════════════════════════════════════════════════
 CREATE TABLE role_permissions (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -98,18 +104,14 @@ CREATE TABLE daily_branch_log (
   log_date DATE NOT NULL,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
-  UNIQUE KEY uq_branch_day (branch_id, created_at),
+  UNIQUE KEY uq_branch_day (branch_id, log_date),
   FOREIGN KEY (branch_id) REFERENCES branches(id),
   FOREIGN KEY (user_id)    REFERENCES users(id)
 );
 
-CREATE TABLE expense_type(
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    type VARCHAR(255) NOT NULL,
-    created_at DATETIME NOT NULL,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
+-- ═══════════════════════════════════════════════════════════════
+-- EXPENSES
+-- ═══════════════════════════════════════════════════════════════
 CREATE TABLE expenses(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     branch_id INT NOT NULL,
@@ -124,6 +126,17 @@ CREATE TABLE expenses(
     FOREIGN KEY (branch_id) REFERENCES branches(id),
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (expense_id) REFERENCES expense_type(id) 
+);
+
+-- ═══════════════════════════════════════════════════════════════
+-- EXPENSE TYPE
+-- ═══════════════════════════════════════════════════════════════
+CREATE TABLE expense_type(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    type ENUM("Daily","Maintenance"),
+    created_at DATETIME NOT NULL,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- ─────────────────────────────────────────────
