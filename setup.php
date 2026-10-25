@@ -97,11 +97,11 @@
           <div>
             <!-- <label for="2FA">2FA</label> -->
             <div class="toggle-group">
+              <label for="twoFA-toggle">Enable Two-Factor Authentication (2FA)</label>
               <label class="toggle-switch">
                   <input type="checkbox" id="twoFA-toggle" name="twoFA" value="true" />
                   <span class="toggle-slider"></span>
               </label>
-              <label for="twoFA-toggle">Enable Two-Factor Authentication (2FA)</label>
             </div>
             <input
               type="password"
