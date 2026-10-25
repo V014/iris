@@ -193,3 +193,25 @@ BEGIN
 END//
 
 DELIMITER ;
+
+--
+-- Dumping data for table `expense_type`
+--
+
+INSERT INTO `expense_type` (`id`, `name`, `type`, `created_at`, `updated_at`) VALUES
+(1, 'Electricity', 'Daily operations', '2026-10-16 17:40:21', '2026-10-16 15:41:11'),
+(2, 'Lunch', 'Daily operations', '2026-10-16 17:40:21', '2026-10-16 15:41:11'),
+(3, 'Overtime', 'Daily operations', '2026-10-16 17:41:11', '2026-10-16 15:41:41'),
+(4, 'Water', 'Daily operations', '2026-10-16 17:41:11', '2026-10-16 15:41:41'),
+(5, 'Bulb', 'Daily operations', '2026-10-16 17:41:55', '2026-10-16 15:43:56'),
+(6, 'Broom', 'Daily operations', '2026-10-16 17:41:55', '2026-10-16 15:43:56'),
+(7, 'Bolts', 'Maintenance-repairs', '2026-10-16 17:41:55', '2026-10-16 15:43:56'),
+(8, 'Buckets', 'Daily operations', '2026-10-16 17:41:55', '2026-10-16 15:43:56'),
+(9, 'Malichelo', 'Daily operations', '2026-10-16 17:41:55', '2026-10-16 15:43:56'),
+(10, 'Neighborhood watch', 'Daily operations', '2026-10-16 17:41:55', '2026-10-16 15:43:56'),
+(11, 'Welding milling machine', 'Maintenance-repairs', '2026-10-16 17:41:55', '2026-10-16 15:43:56'),
+(12, 'Welding shelling machine', 'Maintenance-repairs', '2026-10-16 17:41:55', '2026-10-16 15:43:56'),
+(13, 'Pulley', 'Maintenance-repairs', '2026-10-25 17:47:35', '2026-10-25 16:47:48'),
+(14, 'Business License', 'Fixed-regulatory', '2026-10-25 17:47:51', '2026-10-25 16:48:04');
+
+-- --------------------------------------------------------
