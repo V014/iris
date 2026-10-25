@@ -140,11 +140,12 @@
             <div class="form-group">
               <label>Security Settings</label>
               <div class="toggle-group">
+                <label for="twoFA-toggle">Two-Factor Authentication (2FA)</label>
                 <label class="toggle-switch">
                   <input type="checkbox" id="twoFA-toggle" name="twoFA" value="true" />
                   <span class="toggle-slider"></span>
                 </label>
-                <label for="twoFA-toggle">Enable Two-Factor Authentication (2FA)</label>
+                
               </div>
               <div class="helper-text">
                 Recommended for enhanced account security
