@@ -49,7 +49,7 @@ try {
 
     $passwordHash = password_hash($password, PASSWORD_DEFAULT);
     $insertStmt = $pdo->prepare('
-        INSERT INTO users (username, role, password, status, contact, 2FA_secret, created_at)
+        INSERT INTO users (username, role, password, status, contact, two_fa_secret, created_at)
         VALUES (:username, :role, :password, :status, :contact, :2FA_secret, NOW())
     ');
 
