@@ -1,22 +1,41 @@
 # **Intelligent Record Information System (IRIS)**
+- For Ndadzantalema Enterprises
 
 ## Statistical details and analysis of an enterprise assets and accounting
 
 ## **Tech Stack**
 
 * HTML web interface
-* JavaScript dynamic interaction
+* JavaScript/HTMX dynamic interaction
 * MYSQL database
 * PHP to access database
 
 ## Features
 
+### Machine Operator
+* Record expenses.
+* Record milling, shelling profits and Kwh usage.
+* Generate daily/weekly report
+
+### Branch Manager
+* View profit from milling and shelling.
+* View expenses that require approving/voiding.
+* Disburses funds from petty cash to pay for large expenses.
+* Generate report of profit from sales.
+
+### Accountant
+* Views branch profit performance.
+* Disburses funds to pay for business license.
+* Consolidates all finance records.
+* Generates report of total profit, expenses and revenue.
+
+### Business Owner
+* View profit, expense and revenue report
+* View breaking margins
+* Generate business finance report
+
+### System Administrator
 * Setup system
-* Manage users
-* Manage company branches
-* Manage user logs
-* Generate user log PDF
-* View Key Performance Indicators
-* Record sales and expenses
-* Generate financial analysis
-* Approve petty cash adjustments
+* CRUD users
+* CRUD company branches
+* Generate user logs

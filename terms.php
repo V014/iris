@@ -18,40 +18,54 @@
             </a>
         </div>
         <!-- Terms and conditions -->
-        <h1 class="terms_heading">Intelligent records information system terms & conditions</h1>
+        <h1 class="terms_heading">IRIS terms & conditions</h1>
+        <hr>
+        <br>
         <p>
             1. You may not use the Software if you are a not the intended user (a maize milling company) located in Malawi due to the pre-set
-            values relating to country durisdiction.
+            values relating to country jurisdiction.
         </p>
+        <hr>
         <br>
         <p>
-            2. This software has been built with trditioanl PHP and must be run within a secure environment, any loss of data during a leak is 
+            2. This software has been built with traditional PHP and must be run within a secure environment, any loss of data during a leak is 
             solely the responsibility of the one who installed it. 
         </p>
+        <hr>
         <br>
         <p>
-            3. Any error feedback about the applcation should be posted as an issue on the official page and a fix will be provided as soon as
-            possible but if it involves chaning the structure of the database then be sure to eport your data first.
+            3. Any error feedback about the application should be posted as an issue on the <a href="https://github.com/v014/iris">official page</a> 
+            and a fix will be provided as soon as possible but if it involves changing the structure of the database then be sure to export your data first.
         </p>
+        <hr>
         <br>
         <p>
-            4. Most of the source code that runs the daily logic is mannually programmed and with that takes time to implement rather than a
+            4. Most of the source code that runs the daily logic is manually programmed and with that takes time to implement rather than a
             vibe coded application, patients is paramount in building lasting scalable products.
         </p>
+        <hr>
         <br>
         <p>
             5. You may not use this application or the code to organize any sort of misconduct processes that lead to harm to anyone or theft
             of any kind, this is intended for good people and practices.
         </p>
+        <hr>
         <br>
         <p>
             6. You may learn standard practices and operations of how it works but not straight up copy everything it does because breakage of
-            you system should not be blamed on this one and integrity should be observed.
+            your system should not be blamed on this one and integrity should be observed.
         </p>
+        <hr>
         <br>
         <p>
-            7. Keek your credentials safe and do not sare them with anyone outside your company to prevent a breach and distrubance with system
+            7. Keep your credentials safe and do not share them with anyone outside your company to prevent a breach and disturbance with system
             functionality, if you notice something off, change your credentials.
+        </p>
+        <hr>
+        <br>
+        <p>
+            8. Data produced within the system is not store beyond your servers nor is telemetry data collected from you, all issues and data solely
+            belongs to you unless reported on the <a href="https://github.com/v014/iris">official page</a>.
         </p>
       </div>
     </div>

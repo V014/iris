@@ -179,11 +179,14 @@ input:focus {
     outline: 2px solid var(--accent-color);
     outline-offset: 0px;
 }
+hr{
+    opacity: 20%;
+}
 .terms_checkbox {
     width: 5%;
 }
 .terms {
-    text-align: center;
+    text-align: justify;
     width: 50rem;
 }
 .terms_heading {
