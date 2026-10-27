@@ -26,7 +26,7 @@
         </div>
 
         <!-- Error messages from PHP render here -->
-        <div id="initiate-feedback" class="feedback" role="status" aria-live="polite"></div>
+        <div id="initiateFeedback" class="feedback" role="status" aria-live="polite"></div>
         <!-- Progress bar -->
         <div class="progress-bar-container">
             <ul class="progress-bar">
@@ -39,7 +39,7 @@
           id="initiateForm"
           class="space-y-5"
           hx-post="controls/initiate.php"
-          hx-target="#initiate-feedback"
+          hx-target="#initiateFeedback"
           hx-swap="innerHTML"
         >
           <label for="terms">

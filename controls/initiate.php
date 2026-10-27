@@ -1,7 +1,6 @@
 <?php
 function initiateFeedback(string $message): never
 {
-    http_response_code(500);
     echo '<p>' . htmlspecialchars($message, ENT_QUOTES, 'UTF-8') . '</p>';
     exit;
 }

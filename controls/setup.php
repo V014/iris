@@ -82,7 +82,6 @@ try {
 } catch (PDOException $e) {
     // Log the error to the user_errors table
     error_log($e->getMessage());
-    userLog($pdo,'Login','System','Failed setup login','Failure');
     setupFeedback('Account creation failed. Please check the database setup and try again later.');
 }
 
