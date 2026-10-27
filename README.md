@@ -20,7 +20,7 @@
 ### Branch Manager
 * View profit from milling and shelling.
 * View expenses that require approving/voiding.
-* Disburses funds from petty cash to pay for large expenses.
+* Escalates large expenses to accountant.
 * Generate report of profit from sales.
 
 ### Accountant
