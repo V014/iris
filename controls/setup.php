@@ -48,6 +48,7 @@ try {
     }
 
     $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+    $two_fa_hash = password_hash($two_fa_secret, PASSWORD_DEFAULT);
     $insertStmt = $pdo->prepare('
         INSERT INTO users (username, role, password, status, contact, two_fa_secret, created_at)
         VALUES (:username, :role, :password, :status, :contact, :two_fa_secret, NOW())
@@ -59,7 +60,7 @@ try {
         'password' => $passwordHash,
         'status' => "Active",
         'contact' => $contact,
-        'two_fa_secret' => $two_fa_secret,
+        'two_fa_secret' => $two_fa_hash,
     ]);
 
     // Login the user after successful registration

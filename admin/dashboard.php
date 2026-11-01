@@ -5,13 +5,13 @@
   if (!isset($_SESSION['user_id'])) {
       header('Location: ../index.php');
       exit;
-}
+  }
 
-// Include the database connection
-require_once '../controls/connection.php';
+  // Include the database connection
+  require_once '../controls/connection.php';
 
-// Include the dashboard controls
-require_once 'controls/dashboard.php';
+  // Include the dashboard controls
+  require_once 'controls/dashboard.php';
 ?>
 
 <!doctype html>
@@ -240,18 +240,19 @@ require_once 'controls/dashboard.php';
                 </tr>
               </thead>
               <!-- Fetch list of users -->
-              <tbody id=""><?php foreach ($getUsers as $user) 
-                            { echo "<tr>
-                                      <td>" . $user['id'] . "</td>
-                                      <td>" . $user['username'] . "</td>
-                                      <td>" . $user['contact'] . "</td>
-                                      <td><span class='role-badge role-" . $user['role'] . "'>" . $user['role'] . "</span></td>
-                                      <td><span class='status-badge status-" . $user['status'] . "'>" . $user['status'] . "</span></td>
-                                      <td>" . $user['last_login'] . "</td>
-                                      <td>" . ($user['has_2fa'] ? '<i class="fas fa-check-circle twoFA-true"></i>' : '<i class="fas fa-times-circle twoFA-false"></i>') . "</td>
-                                    </tr>"; 
-                              } 
-                            ?>
+              <tbody id="">
+                <?php foreach ($getUsers as $user) 
+                  { echo "<tr>
+                            <td>" . $user['id'] . "</td>
+                            <td>" . $user['username'] . "</td>
+                            <td>" . $user['contact'] . "</td>
+                            <td><span class='role-badge role-" . $user['role'] . "'>" . $user['role'] . "</span></td>
+                            <td><span class='status-badge status-" . $user['status'] . "'>" . $user['status'] . "</span></td>
+                            <td>" . $user['last_login'] . "</td>
+                            <td>" . ($user['has_2fa'] ? '<i class="fas fa-check-circle twoFA-true"></i>' : '<i class="fas fa-times-circle twoFA-false"></i>') . "</td>
+                          </tr>"; 
+                  } 
+                ?>
               </tbody>
               <!-- <tbody id="tableBody"></tbody> -->
             </table>
