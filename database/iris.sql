@@ -344,13 +344,6 @@ ALTER TABLE `user_logs`
 -- --------------------------------------------------------
 
 --
--- Structure for view `v_daily_branch_performance`
---
-DROP TABLE IF EXISTS `v_daily_branch_performance`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_daily_branch_performance`  AS SELECT `log`.`branch_id` AS `branch_id`, `log`.`log_date` AS `day`, `log`.`total_revenue` AS `revenue`, `log`.`electricity_cost` AS `electricity_cost`, coalesce(`exp`.`other_expenses`,0) AS `other_expenses`, `log`.`total_revenue`- `log`.`electricity_cost` - coalesce(`exp`.`other_expenses`,0) AS `net_profit`, `log`.`used_kwh` AS `kwh_used`, `log`.`revenue_per_kwh` AS `mwk_earned_per_kwh`, `log`.`electricity_tariff_at_record` AS `tariff_at_record` FROM (`daily_branch_log` `log` left join (select `expenses`.`branch_id` AS `branch_id`,`expenses`.`expense_date` AS `d`,sum(`expenses`.`amount`) AS `other_expenses` from `expenses` where `expenses`.`is_void` = 0 group by `expenses`.`branch_id`,`expenses`.`expense_date`) `exp` on(`exp`.`branch_id` = `log`.`branch_id` and `exp`.`d` = `log`.`log_date`)) WHERE `log`.`is_void` = 0union allselect `e`.`branch_id` AS `branch_id`,`e`.`expense_date` AS `day`,0 AS `revenue`,0 AS `electricity_cost`,sum(`e`.`amount`) AS `other_expenses`,-sum(`e`.`amount`) AS `net_profit`,0 AS `kwh_used`,NULL AS `mwk_earned_per_kwh`,NULL AS `tariff_at_record` from `expenses` `e` where `e`.`is_void` = 0 and !exists(select 1 from `daily_branch_log` `l` where `l`.`branch_id` = `e`.`branch_id` and `l`.`log_date` = `e`.`expense_date` and `l`.`is_void` = 0 limit 1) group by `e`.`branch_id`,`e`.`expense_date`  ;
-
---
 -- Constraints for dumped tables
 --
 
