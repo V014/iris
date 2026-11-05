@@ -158,6 +158,11 @@
                 placeholder="Re-enter password"
                 required
               />
+              <div class="helper-text">
+                <span id="length-confirm-rule" class="length-rule">
+                  ✕ Must be same as password
+                </span>
+              </div>
             </div>
 
             <!-- 2FA Toggle -->
@@ -212,5 +217,6 @@
     
     <script src="../js/twoFA.js"></script>
     <script src="../js/password_limit.js"></script>
+    <script src="../js/password_match.js"></script>
   </body>
 </html>
