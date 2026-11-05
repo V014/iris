@@ -128,31 +128,65 @@
               </select>
             </div>
 
-            <!-- New Password -->
+            <!-- Password -->
             <div class="form-group">
-              <label
-                >New Password
-                <span style="opacity: 0.4; font-weight: 400"
-                  >(optional)</span
-                ></label
-              >
+              <label>Password <span class="required">*</span></label>
               <input
                 type="password"
                 id="password"
-                placeholder="Leave blank to keep current"
+                name="password"
+                placeholder="Min 8 characters"
+                required
                 minlength="8"
               />
-              <div class="helper-text">Min 8 characters (only if changing)</div>
+              <div id="password-feedback">
+                <div class="helper-text">
+                  <span id="length-rule" class="length-rule">
+                    ✕ Must be at least 8 characters
+                  </span>
+                </div>
+              </div>
             </div>
 
             <!-- Confirm Password -->
             <div class="form-group">
-              <label>Confirm New Password</label>
+              <label>Confirm Password <span class="required">*</span></label>
               <input
                 type="password"
                 id="confirmPassword"
-                placeholder="Re-enter new password"
+                name="confirmPassword"
+                placeholder="Re-enter password"
+                required
               />
+            </div>
+
+            <!-- 2FA Toggle -->
+            <div class="form-group">
+              <label>Security Settings</label>
+              <div class="toggle-group">
+                <label for="twoFA-toggle">Two-Factor Authentication (2FA)</label>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="twoFA-toggle" name="twoFA" value="true" <?php echo htmlspecialchars($user['two_fa_secret'] != '') ? 'checked' : ''; ?> />
+                  <span class="toggle-slider"></span>
+                </label>
+                
+              </div>
+              <div class="helper-text">
+                Recommended for enhanced account security
+              </div>
+            </div>
+
+            <!-- 2FA secret -->
+            <div class="form-group">
+              <label>Two-Factor secret(Optional)</label>
+              <input
+                type="password"
+                id="twoFA-secret"
+                name="twoFA"
+                placeholder="Either pin or phrase"
+                disabled
+              />
+              </input>
             </div>
             
           </div>
@@ -176,7 +210,7 @@
       </div>
     </div>
     
-    <script src="js/twoFA.js"></script>
+    <script src="../js/twoFA.js"></script>
     <script src="../js/password_limit.js"></script>
   </body>
 </html>
