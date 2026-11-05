@@ -35,6 +35,7 @@ CREATE TABLE user_logs(
 CREATE TABLE roles (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name TEXT NOT NULL,
+    status ENUM('Active','Inactive') NOT NULL,
     created_at DATETIME NOT NULL,
     updated_at timestamp NOT NULL DEFAULT current_timestamp()
 )

@@ -147,6 +147,7 @@ CREATE TABLE `expenses` (
 CREATE TABLE `roles` (
   `id`         INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name`       VARCHAR(255) NOT NULL,
+  `status`     ENUM('Active','Inactive') NOT NULL,
   `created_at` DATETIME NOT NULL,
   `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
