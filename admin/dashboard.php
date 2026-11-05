@@ -92,6 +92,7 @@
         <div class="content-wrapper">
           <!-- WELCOME CARD -->
           <div class="panel-card welcome-card">
+            
             <div class="welcome-left">
               <h2>
                 <i

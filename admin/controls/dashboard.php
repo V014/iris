@@ -125,7 +125,7 @@ try {
 
 try {
     // count 2FA Enabled user accounts
-    $Stmt = $pdo->prepare('SELECT COUNT(id) AS total FROM users WHERE 2FA_secret IS NOT NULL');
+    $Stmt = $pdo->prepare('SELECT COUNT(id) AS total FROM users WHERE two_fa_secret IS NOT NULL');
     $Stmt->execute();
     $get2FAEnabled = $Stmt->fetch();
     
@@ -137,7 +137,7 @@ try {
 
 try {
     // count 2FA pending accounts
-    $Stmt = $pdo->prepare('SELECT COUNT(id) AS total FROM users WHERE 2FA_secret IS NULL');
+    $Stmt = $pdo->prepare('SELECT COUNT(id) AS total FROM users WHERE two_fa_secret IS NULL');
     $Stmt->execute();
     $get2FAPending = $Stmt->fetch();
     
@@ -148,14 +148,14 @@ try {
 }
 
 try {
-    // count 2FA pending accounts
+    // count inactive users
     $Stmt = $pdo->prepare('SELECT COUNT(id) AS total FROM users WHERE status ="Inactive"');
     $Stmt->execute();
     $getLockedAccounts = $Stmt->fetch();
     
 }   catch(PDOException $e){
     error_log('Failed to count 2FA pending accounts: ' . $e->getMessage());
-    dashboardFeedback($pdo, "Read", "System", "Failed to count 2FA pending accounts", "Failure");
+    dashboardFeedback($pdo, "Read", "System", "Failed to count inactive users", "Failure");
     exit;
 }
 
@@ -164,7 +164,7 @@ try {
     // show user and user_log table
     $Stmt = $pdo->prepare('SELECT u.id, u.username, u.role, u.status, u.contact, 
                             MAX(ul.created_at) AS last_login, 
-                            (u.2FA_secret IS NOT NULL) AS has_2fa 
+                            (u.two_fa_secret IS NOT NULL) AS has_2fa 
                             FROM users u 
                             LEFT JOIN user_logs ul ON u.id = ul.user_id
                             GROUP BY u.id
