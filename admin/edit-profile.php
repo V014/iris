@@ -38,7 +38,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"
     />
-    <title>Edit user</title>
+    <title>Edit profile</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
@@ -57,13 +57,13 @@
 
       <!-- WELCOME CARD (no time/day) -->
       <div class="welcome-card">
-        <h2><i class="fas fa-user-pen"></i> Edit User Account</h2>
+        <h2><i class="fas fa-user-pen"></i> Edit Profile</h2>
       </div>
 
       <!-- CREATE FORM -->
       <div class="form-card">
         <div class="form-title">
-          <i class="fas fa-user-shield"></i> Edit User Account
+          <i class="fas fa-user-shield"></i> Edit Profile
         </div>
         <div class="form-subtitle">
           Edit the fields below to change user details. All fields
@@ -128,7 +128,32 @@
               </select>
             </div>
 
-            
+            <!-- New Password -->
+            <div class="form-group">
+              <label
+                >New Password
+                <span style="opacity: 0.4; font-weight: 400"
+                  >(optional)</span
+                ></label
+              >
+              <input
+                type="password"
+                id="password"
+                placeholder="Leave blank to keep current"
+                minlength="8"
+              />
+              <div class="helper-text">Min 8 characters (only if changing)</div>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="form-group">
+              <label>Confirm New Password</label>
+              <input
+                type="password"
+                id="confirmPassword"
+                placeholder="Re-enter new password"
+              />
+            </div>
             
           </div>
 

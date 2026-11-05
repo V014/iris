@@ -22,17 +22,19 @@
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     // Redirect user who owns account to edit-profile to enable password change
-    if($user === $_SESSION['user_id']){
-      header("Location: edit-profile.php");
+    if($_SESSION['user_id'] == $user['id']){
+      header("Location: edit-profile.php" . "?id=".$user['id']);
       exit();
     }
     
     // If the user doesn't exist, stop execution
     if (!$user) {
-        die("User not found.");
+      header("Location: ../edit-user.php");
+      echo "<script>alert('User not found.');</script>";
     }
   } else {
-      die("No user ID specified.");
+    header("Location: ../edit-user.php");
+    echo "<script>alert('No user ID specified.');</script>";
   }
 ?>
 
