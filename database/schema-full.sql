@@ -35,6 +35,7 @@ CREATE TABLE user_logs(
 CREATE TABLE roles (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name TEXT NOT NULL,
+    description TEXT DEFAULT NOT NULL,
     status ENUM('Active','Inactive') NOT NULL,
     created_at DATETIME NOT NULL,
     updated_at timestamp NOT NULL DEFAULT current_timestamp()
@@ -43,7 +44,6 @@ CREATE TABLE roles (
 CREATE TABLE role_permissions (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    description TEXT,
     created_at DATETIME NOT NULL,
     updated_at timestamp NOT NULL DEFAULT current_timestamp()
 )
