@@ -6,7 +6,7 @@ CREATE TABLE users(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    2FA_secret VARCHAR(255),
+    two_fa_secret VARCHAR(255),
     role ENUM("System-admin","Machine-operator","Branch-manager","Accountant","Business-owner") NOT NULL,
     status ENUM("Active","Inactive","Terminated") NOT NULL,
     contact VARCHAR(10),
