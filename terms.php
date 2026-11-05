@@ -34,7 +34,7 @@
         <hr>
         <br>
         <p>
-            3. Any error feedback about the application should be posted as an issue on the <a href="https://github.com/v014/iris">official page</a> 
+            3. Any error feedback about the application should be posted as an issue on the <a href="https://github.com/v014/iris" target="_blank">official page</a> 
             and a fix will be provided as soon as possible but if it involves changing the structure of the database then be sure to export your data first.
         </p>
         <hr>
@@ -65,7 +65,7 @@
         <br>
         <p>
             8. Data produced within the system is not store beyond your servers nor is telemetry data collected from you, all issues and data solely
-            belongs to you unless reported on the <a href="https://github.com/v014/iris">official page</a>.
+            belongs to you unless reported on the <a href="https://github.com/v014/iris" target="_blank">official page</a>.
         </p>
       </div>
     </div>

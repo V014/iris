@@ -27,6 +27,7 @@
     } catch (\PDOException $e) {
         // Log the error internally and hide sensitive database details from the user
         error_log($e->getMessage());
-        exit('Database connection failed. Please try again later.');
+        header("Location: initiate.php");
+        exit();
     }
 ?>

@@ -43,7 +43,7 @@
           hx-swap="innerHTML"
         >
           <label for="terms">
-            I agree to the <a href=terms.php>terms and conditions</a>
+            I agree to the stated <a href=terms.php>terms and conditions</a>.
             <input type="checkbox" class="terms_checkbox" name="terms" id="terms" value="agree" required>
           </label>
           

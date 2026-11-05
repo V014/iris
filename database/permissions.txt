@@ -1,0 +1,10 @@
+View dashbaord
+Manage users
+View Audit log
+system settings
+process sales
+process expenses
+view reports
+manage roles
+manage finance
+export data
