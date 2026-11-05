@@ -20,6 +20,12 @@
     $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
     $stmt->execute([$user_id]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Redirect user who owns account to edit-profile to enable password change
+    if($user === $_SESSION['user_id']){
+      header("Location: edit-profile.php");
+      exit();
+    }
     
     // If the user doesn't exist, stop execution
     if (!$user) {
