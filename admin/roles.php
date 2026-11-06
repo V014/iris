@@ -111,19 +111,23 @@
           <!-- STATS MINI -->
           <div class="stats-mini">
             <div class="stat-mini">
-              <div class="stat-number" id="miniTotal">0</div>
+              <div class="stat-number"><?php echo $getTotalRoles['total']; ?></div>
               <div class="stat-label">Total Roles</div>
             </div>
             <div class="stat-mini">
-              <div class="stat-number" id="miniActive">0</div>
+              <div class="stat-number"><?php echo $getTotalActiveRoles['total']; ?></div>
               <div class="stat-label">Active</div>
             </div>
             <div class="stat-mini">
-              <div class="stat-number" id="miniUsers">0</div>
+              <div class="stat-number"><?php echo $getTotalInactiveRoles['total']; ?></div>
+              <div class="stat-label">Inactive</div>
+            </div>
+            <div class="stat-mini">
+              <div class="stat-number"><?php echo $getTotalUsers['total']; ?></div>
               <div class="stat-label">Total Users</div>
             </div>
             <div class="stat-mini">
-              <div class="stat-number" id="miniPermissions">0</div>
+              <div class="stat-number"><?php echo $getTotalPermissions['total']; ?></div>
               <div class="stat-label">Total Permissions</div>
             </div>
           </div>
