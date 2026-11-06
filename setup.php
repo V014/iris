@@ -71,7 +71,7 @@
           <div>
             <!-- <label for="loginPassword">Confirm Password</label> -->
             <input
-              id="loginConfirmPassword"
+              id="confirmPassword"
               type="password"
               placeholder="Confirm password"
               required

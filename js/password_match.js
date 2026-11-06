@@ -2,7 +2,6 @@
 document.addEventListener('DOMContentLoaded', function() {
   const passwordInput = document.getElementById('password');
   const confirmPasswordInput = document.getElementById('confirmPassword');
-  const submitButton = document.querySelector('button[type="submit"]');
   const lengthRule = document.getElementById('length-confirm-rule');
 
     function checkPasswordMatch() {
@@ -12,11 +11,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (password === confirmPassword) {
             lengthRule.textContent = "✓ Passwords match";
             lengthRule.style.color = '#3ddc84';
-            // submitButton.disabled = false;
         } else {
             lengthRule.textContent = "✕ Passwords do not match";
             lengthRule.style.color = '#E74C3C';
-            // submitButton.disabled = true;
         }
     }
 
