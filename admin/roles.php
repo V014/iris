@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"
     />
-    <title>Afrinance</title>
+    <title>Manage roles</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
@@ -29,7 +29,7 @@
             />
           </div>
           <div class="user-info">
-            <span id="sidebarUserName">Admin Manager</span>
+            <span id="sidebarUserName">System Administrator</span>
             <br /><small>System Admin</small>
           </div>
         </div>

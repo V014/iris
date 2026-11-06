@@ -46,7 +46,7 @@
             />
           </div>
           <div class="user-info">
-            <span id="sidebarUserName">Admin Manager</span>
+            <span id="sidebarUserName">System Administrator</span>
             <br /><small><?php echo $_SESSION['username']; ?></small>
           </div>
         </div>
