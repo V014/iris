@@ -1,3 +1,18 @@
+<?php
+  session_start();
+
+  // Block access if the user is not logged in
+  if (!isset($_SESSION['user_id'])) {
+      header('Location: ../index.php');
+      exit;
+  }
+
+  // Include the database connection
+  require_once '../controls/connection.php';
+
+  // Include the dashboard controls
+  require_once 'controls/roles.php';
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -30,7 +45,7 @@
           </div>
           <div class="user-info">
             <span>System Administrator</span>
-            <br /><small>System Admin</small>
+            <br /><small><?php echo $_SESSION['username']; ?></small>
           </div>
         </div>
 

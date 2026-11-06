@@ -11,7 +11,7 @@
   require_once '../controls/connection.php';
 
   // Include the controls file
-  require_once 'controls/edit-users.php';
+  require_once 'controls/edit-user.php';
 
   if (isset($_GET['id']) && !empty($_GET['id'])) {
     $user_id = (int) $_GET['id'];

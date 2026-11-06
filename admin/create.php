@@ -51,7 +51,7 @@
         <!-- Error messages from PHP render here -->
         <div id="dashboardFeedback" class="feedback" role="status" aria-live="polite"></div>
 
-        <form id="createAdminForm" hx-post="controls/create.php" hx-target="#dashboardFeedback" hx-swap="innerHTML">
+        <form id="createAdminForm" hx-post="controls/create-user.php" hx-target="#dashboardFeedback" hx-swap="innerHTML">
           <div class="form-grid">
             <!-- Username -->
             <div class="form-group">
