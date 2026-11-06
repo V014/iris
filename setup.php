@@ -75,10 +75,15 @@
               type="password"
               placeholder="Confirm password"
               required
-              name="confirm_password"
+              name="confirmPassword"
               minlength=8
               title="You must have at least 8 characters"
             />
+            <div class="helper-text">
+              <span id="length-confirm-rule" class="length-rule">
+                ✕ Must be same as password
+              </span>
+            </div>
           </div>
           <div>
             <input
@@ -122,5 +127,6 @@
     
 </body>
 <script src="js/twoFA.js"></script>
+<script src="js/password_match.js"></script>
 <script src="js/password_limit.js"></script>
 </html>

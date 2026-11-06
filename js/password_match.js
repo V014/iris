@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // submitButton.disabled = false;
         } else {
             lengthRule.textContent = "✕ Passwords do not match";
-            lengthRule.style.color = '#e74c3c';
+            lengthRule.style.color = '#E74C3C';
             // submitButton.disabled = true;
         }
     }

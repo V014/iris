@@ -12,7 +12,7 @@ const passwordInput = document.getElementById('password');
       submitBtn.disabled = false;
     } else {
       lengthRule.textContent = '✕ Must be at least 8 characters';
-      lengthRule.style.color = '#e74c3c';
+      lengthRule.style.color = '#E74C3C';
       submitBtn.disabled = true;
     }
   });
