@@ -165,7 +165,37 @@
                   <th>Actions</th>
                 </tr>
               </thead>
-              <tbody id="tableBody"></tbody>
+              <tbody id="">
+                <?php foreach ($getRoles as $roles) 
+                  { echo "<tr>
+                            <td>" . $roles['id'] . "</td>
+                            <td>" . $roles['name'] . "</td>
+                            <td>" . $roles['description'] . "</td>
+                            <td>" . $roles['users'] . "</td>
+                            <td><span class='status-badge status-" . $roles['status'] . "'>" . $roles['status'] . "</span></td>
+                            <td>" . $roles['created_at'] . "</td>
+                            <td class='action-icons'>
+                              <a href='edit-role.php?id=" . $roles['id'] . "' class='edit' data-id='" . $roles['id'] . "' title='Edit'>
+                                <i class='fas fa-edit'></i>
+                              </a>
+                              <a href='delete-role.php?id=" . $roles['id'] . "' class='delete' data-id='" . $roles['id'] . "' title='Delete'>
+                                <i class='fas fa-trash-alt'></i>
+                              </a>
+                            </td>
+                          </tr>"; 
+                  } 
+                ?>
+              </tbody>
+            </table>
+            <div id="emptyState" class="empty-state" style="display: none">
+              No roles found
+                            <td><span class='status-badge status-" . $user['status'] . "'>" . $user['status'] . "</span></td>
+                            <td>" . $user['last_login'] . "</td>
+                            <td>" . ($user['has_2fa'] ? '<i class="fas fa-check-circle twoFA-true"></i>' : '<i class="fas fa-times-circle twoFA-false"></i>') . "</td>
+                          </tr>"; 
+                  } 
+                ?>
+              </tbody>
             </table>
             <div id="emptyState" class="empty-state" style="display: none">
               No roles found
